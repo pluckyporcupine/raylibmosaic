@@ -182,7 +182,7 @@ global record ModelAnimation=
     int32 boneCount
     ref BoneInfo bones
     int32 frameCount
-    ref rTransform framePoses
+    ref[]rTransform framePoses
 end
 
 global record Ray=
@@ -714,11 +714,11 @@ importdll libraylib=
     clang function  "GetDirectoryPath"          (ref char)ref char
     clang function  "GetPrevDirectoryPath"      (ref char)ref char
     clang function  "GetWorkingDirectory"       ()ref char
-    clang function  "GetDirectoryFiles"         (ref char, ref char)ref char        !??? RLAPI char **GetDirectoryFiles(const char *dirPath, int *count);
+    clang function  "GetDirectoryFiles"         (ref char, ref char)ref[]ichar
     clang proc      "ClearDirectoryFiles"       ()
     clang function  "ChangeDirectory"           (ref char)byte
     clang function  "IsFileDropped"             ()byte
-    clang function  "GetDroppedFiles"           (ref int)ref char                   !??? RLAPI char **GetDroppedFiles(int *count);
+    clang function  "GetDroppedFiles"           (ref int)ref[]ichar
     clang function  "GetFileModTime"            (ref char)int64
 
     !data compression functions
@@ -795,7 +795,7 @@ importdll libraylib=
     clang proc      "DrawLineV"                 (Vec2, Vec2, Col)
     clang proc      "DrawLineEx"                (Vec2, Vec2, real32, Col)
     clang proc      "DrawLineBezier"            (Vec2, Vec2, real32, Col)
-    clang proc      "DrawLineStrip"             (ref Vec2, int32, Col)              ! unsure if "ref Vec2" will work here. definitely an array - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
+    clang proc      "DrawLineStrip"             (ref Vec2, int32, Col)              ! unsure if "ref Vec2" will work here. definitely an array. "ref[]Vec2"? - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
     clang proc      "DrawCircle"                (int32, int32, real32, Col)
     clang proc      "DrawCircleSector"          (Vec2, real32, int32, int32, int32, Col)
     clang proc      "DrawCircleSectorLines"     (Vec2, real32, int32, int32, int32, Col)
@@ -819,8 +819,8 @@ importdll libraylib=
     clang proc      "DrawRectangleRoundedLines" (ref Rectangle, real32, int32, int32, Col)
     clang proc      "DrawTriangle"              (Vec2, Vec2, Vec2, Col)
     clang proc      "DrawTriangleLines"         (Vec2, Vec2, Vec2, Col)
-    clang proc      "DrawTriangleFan"           (ref Vec2, int32, Col) ! unsure if "ref Vec2" will work here. definitely an array
-    clang proc      "DrawTriangleStrip"         (ref Vec2, int32, Col) ! unsure if "ref Vec2" will work here. definitely an array
+    clang proc      "DrawTriangleFan"           (ref Vec2, int32, Col)              ! unsure if "ref Vec2" will work here. definitely an array. "ref[]Vec2"?
+    clang proc      "DrawTriangleStrip"         (ref Vec2, int32, Col)              ! unsure if "ref Vec2" will work here. definitely an array. "ref[]Vec2"?
     clang proc      "DrawPoly"                  (Vec2, int32, real32, real32, Col)
     clang proc      "DrawPolyLines"             (Vec2, int32, real32, real32, Col)
 
@@ -837,7 +837,7 @@ importdll libraylib=
     
     !Image/Texture2D data handling functions
     clang function  "LoadImage"                 (ref char)ref Image
-    clang function  "LoadImageEx"               (ref Col, int32, int32)ref Image ! unsure if "ref Col" will work here. definitely an array
+    clang function  "LoadImageEx"               (ref Col, int32, int32)ref Image    ! unsure if "ref Col" will work here. definitely an array. "ref[]Col"?
     clang function  "LoadImagePro"              (ref void, int32, int32, int32)ref Image
     clang function  "LoadImageRaw"              (ref char, int32, int32, int32, int32)ref Image
     clang proc      "ExportImage"               (ref Image, ref char)
@@ -860,7 +860,7 @@ importdll libraylib=
     !Image manipulation functions
     clang function  "ImageCopy"                 (ref Image)ref Image
     clang function  "ImageFromImage"            (ref Image, ref Rectangle)ref Image
-    clang proc      "ImagetoPOT"                (ref Image, Col) ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer - RLAPI void ImageToPOT(Image *image, Color fillColor);
+    clang proc      "ImagetoPOT"                (ref Image, Col)                    ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer. "ref[]Image"? - RLAPI void ImageToPOT(Image *image, Color fillColor);
     clang proc      "ImageFormat"               (ref Image, int32)
     clang proc      "ImageAlphaMask"            (ref Image, ref Image)
     clang proc      "ImageAlphaClear"           (ref Image, Col, real32)
@@ -945,8 +945,8 @@ importdll libraylib=
     clang function  "TextSubtext"               (ref char, int32, int32)ref char
     clang function  "TextReplace"               (ref char, ref char, ref char)ref char
     clang function  "TextInsert"                (ref char, ref char, int32)ref char
-    clang function  "TextJoin"                  (ref char, int32, ref char)ref char !unsure if "ref char" will work here - RLAPI const char *TextJoin(const char **textList, int count, const char *delimiter);
-    clang function  "TextSplit"                 (ref char, ref char, ref int32)ref char !unsure if "ref char" will work here - RLAPI const char **TextSplit(const char *text, char delimiter, int *count);
+    clang function  "TextJoin"                  (ref[]ichar, int32, ref char)ref char
+    clang function  "TextSplit"                 (ref char, ref char, ref int32)ref[]ichar
     clang proc      "TextAppend"                (ref char, ref char, ref int32)
     clang function  "TextFindIndex"             (ref char, ref char)int32
     clang function  "TextToUpper"               (ref char)ref char
