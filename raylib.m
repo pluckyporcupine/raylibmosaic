@@ -88,7 +88,7 @@ global record CharInfo=
     int32 offsetX
     int32 offsetY
     int32 advanceX
-    Image img
+    image image
 end
 
 global record Font=
@@ -142,13 +142,13 @@ global record Shader=
 end
 
 global record MaterialMap=
-    Texture2D txtr
-    Color clr
+    Texture2D texture
+    color color
     ref real32 params
 end
 
 global record Material=
-    Shader shdr
+    shader shader
     ref MaterialMap maps
     ref r32 params
 end
@@ -165,7 +165,7 @@ global record BoneInfo=
 end
 
 global record Model=
-    Matrix trnsfrm
+    Matrix transform
     int32 meshCount
     ref Mesh meshes
     int32 materialCount
@@ -842,8 +842,8 @@ importdll libraylib=
     clang function  "LoadImageRaw"              (ref char, int32, int32, int32, int32)ref Image
     clang proc      "ExportImage"               (ref Image, ref char)
     clang proc      "ExportImageAsCode"         (ref Image, ref char)
-    clang function  "LoadTexture"               (ref char)Texture2D
-    clang function  "LoadTextureFromImage"      (ref Image)Texture2D
+    clang function  "LoadTexture"               (ref char)ref Texture2D
+    clang function  "LoadTextureFromImage"      (ref Image)ref Texture2D
     clang function  "LoadTextureCubemap"        (ref Image, int32)ref TextureCubemap
     clang function  "LoadRenderTexture"         (int32, int32)ref RenderTexture2D
     clang proc      "UnloadImage"               (ref Image)

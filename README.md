@@ -12,17 +12,13 @@ These bindings are still a work in progress. They are not battle-tested at all. 
 
 ## Quirks
 
-Due to a compiler quirk and the fact that M does not currently support passing a record (struct) to a C function by value, there are a few quirks.
+Due to reserved words and the fact that M does not currently support passing a record (struct) to a C function by value, there are a few quirks.
 
 * Because Color and Vector2 records are always 8 bytes or less in size, they are always passed by value, rather than automatically being passed by reference. As such, there are several compatibility functions to convert them to and from 32-bit unsigned integers so that they can properly be passed to C functions and back. These are `$c2w32`, which converts a Color record to a word32; `newcol`, which converts a word32 to a Color record;`$v22w32`, which converts a Vector2 record to a word32; and `newvec2`, which converts a word32 to a Vector2. *You only need to convert these values back to their respective record values if you intend to modify them.* Otherwise, you can continue to use them without converting them. The types for Color structs that have been converted to word32 is `Col` and the type for Vector2 structs that have been converted to word32 is `Vec2`. Additionally, you do not need to do this for other structs—as mentioned above, they are passed by reference by default and, thus, avoid the aforementioned issue.
 
-* The names of several struct members have been changed to avoid namespace conflicts with reserved words and compiler errors. The changes are as follows:
-    * color -> clr
+* The names of several struct members have been changed to avoid namespace conflicts with reserved words. The changes are as follows:
     * max -> `max
     * min -> `min
-    * shader -> shdr
-    * texture -> txtr
-    * transform -> trnsfrm
 
 ## raymath and rlgl
 
