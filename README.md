@@ -1,6 +1,6 @@
 # raylib-M
 
-These are work-in-progress M bindings for the raylib gamedev library. M is an ALGOL- and Pascal-inspired low-level programming language that was designed by its creator as an alternative to C for systems programming. It has been used by its creator since the 80s and quite a bit of attention has been paid to making sure that code is clear.
+These are work-in-progress M bindings for the raylib gamedev library.
 
 You can download the compiler here: http://www.bcas.freeuk.com/mm.exe
 
