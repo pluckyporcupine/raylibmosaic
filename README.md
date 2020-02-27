@@ -19,6 +19,7 @@ Due to reserved words and the fact that M does not currently support passing a r
 * The names of several struct members have been changed to avoid namespace conflicts with reserved words. The changes are as follows:
     * max -> `max
     * min -> `min
+    * type -> `type
 
 ## raymath and rlgl
 
