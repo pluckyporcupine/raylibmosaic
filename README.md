@@ -10,6 +10,8 @@ The latest source release can be found here: https://github.com/sal55/langs/tree
 
 These bindings are still a work in progress. They are not battle-tested at all. They compile and the core_2d_camera example works, but there are bound to be plenty of things that don't work as expected. These bindings were hand-written and not all of the type signatures have been verified.
 
+Addendum: I've already found a significant number of type mismatches. For the time being, assume that only what has been used in the published translations of examples works properly. Quite a lot more will likely work, but there is also a chance that it won't. If you find any errors, please either post an issue or submit a pull request with a fix.
+
 ## Quirks
 
 Due to reserved words and the fact that Mosaic does not currently support passing a record (struct) to a C function by value, there are a few quirks.
