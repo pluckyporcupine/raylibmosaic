@@ -1,6 +1,6 @@
-# raylib-M
+# raylib-mosaic
 
-These are work-in-progress M bindings for [the raylib gamedev library](https://github.com/raysan5/raylib).
+These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib).
 
 You can download the compiler here: http://www.bcas.freeuk.com/mm.exe
 
@@ -12,7 +12,7 @@ These bindings are still a work in progress. They are not battle-tested at all. 
 
 ## Quirks
 
-Due to reserved words and the fact that M does not currently support passing a record (struct) to a C function by value, there are a few quirks.
+Due to reserved words and the fact that Mosaic does not currently support passing a record (struct) to a C function by value, there are a few quirks.
 
 * Because Color and Vector2 records are always 8 bytes or less in size, they are always passed by value, rather than automatically being passed by reference. As such, there are several compatibility functions to convert them to and from 32-bit unsigned integers so that they can properly be passed to C functions and back. These are `$c2w32`, which converts a Color record to a word32; `newcol`, which converts a word32 to a Color record;`$v22w32`, which converts a Vector2 record to a word32; and `newvec2`, which converts a word32 to a Vector2. 
 
