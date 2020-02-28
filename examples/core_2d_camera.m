@@ -11,11 +11,7 @@ proc start=
 
     InitWindow(screenWidth, screenHeight, cast("raylib [core] example - 2d camera"))
 
-    Rectangle player
-    player.x:=400
-    player.y:=280
-    player.width:=40
-    player.height:=40
+    Rectangle player:=(400, 280, 40, 40)
 
     static [MAX_BUILDINGS]Rectangle buildings
     static [MAX_BUILDINGS]Color buildColors
@@ -29,22 +25,10 @@ proc start=
         buildings[i].x:=-6000+spacing
 
         spacing+:=buildings[i].width
-
-        Color col
-        col.r:=GetRandomValue(200,240)
-        col.g:=GetRandomValue(200,240)
-        col.b:=GetRandomValue(200,250)
-        col.a:=255
-        buildColors[i]:=col
+        buildColors[i]:=(GetRandomValue(200,240),GetRandomValue(200,240),GetRandomValue(200,250),255)
     od
 
-    Camera2D camera
-    camera.target.x:=player.x+20
-    camera.target.y:=player.y+20
-    camera.offset.x:=screenWidth/2
-    camera.offset.y:=screenHeight/2
-    camera.rotation:=0.0
-    camera.zoom:=1.0
+    Camera2D camera:=( (player.x+20, player.y+20), (screenWidth/2, screenHeight/2), 0.0, 1.0 )
 
     SetTargetFPS(60)
 
