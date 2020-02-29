@@ -33,8 +33,10 @@ Due to reserved words and differences in calling conventions, there are a few qu
   Image img
   LoadImage(&img,"resources/cubicmap.png")
   ```
-  **Important note:** This does not apply to functions that return Color or Vector2 structs because they are <=8 bytes.
+  **Important note:** This does not apply to functions that return Color, float3, float16, or Vector2 structs because they are <=8 bytes.
 
 ## raymath and rlgl
 
-I have not yet created bindings for raymath or rlgl.
+Bindings have been written for raymath, but have not yet been tested. I have not yet written bindings for rlgl.
+
+All bindings are in raylib.m.

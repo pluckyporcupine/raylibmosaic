@@ -247,8 +247,21 @@ global record VrDeviceInfo= $caligned
     [4]r32 chromAbCorrection
 end
 
-!enums definition
+!need to figure out how to implement TraceLogCallback
+global record TraceLogCallback= $caligned
+    int dummy
+end
 
+!raymath structs
+global record float3= $caligned
+    ref[3]real32 v
+end
+
+global record float16= $caligned
+    ref[16]real32 v
+end
+
+!enums definition
 global enum (
     FLAG_SHOW_LOGO          = 1,
     FLAG_FULLSCREEN_MODE    = 2,
@@ -566,11 +579,6 @@ global enum (
     NPT_9PATCH              = 0,
     NPT_3PATCH_VERTICAL,
     NPT_3PATCH_HORIZONTAL )
-
-!need to figure out how to implement TraceLogCallback
-global record TraceLogCallback= $caligned
-    int dummy
-end
 
 !basic colors
 global Color LIGHTGRAY=(200,200,200,255)
@@ -1117,4 +1125,94 @@ importdll libraylib=
     clang proc      "StopAudioStream"           (ref AudioStream)
     clang proc      "SetAudioStreamVolume"      (ref AudioStream, real32)
     clang proc      "SetAudioStreamPitch"       (ref AudioStream, real32)
+
+    !raymath functions
+
+    !utils math
+    clang function  "Clamp"                     (real32, real32, real32)real32
+    clang function  "Lerp"                      (real32, real32, real32)real32
+
+    !Vector2 math
+    clang function  "Vector2Zero"               ()Vector2
+    clang function  "Vector2One"                ()Vector2
+    clang function  "Vector2Add"                (Vector2, Vector2)Vector2
+    clang function  "Vector2Subtract"           (Vector2, Vector2)Vector2
+    clang function  "Vector2Length"             (Vector2)real32
+    clang function  "Vector2DotProduct"         (Vector2, Vector2)real32
+    clang function  "Vector2Distance"           (Vector2, Vector2)real32
+    clang function  "Vector2Angle"              (Vector2, Vector2)real32
+    clang function  "Vector2Scale"              (Vector2, real32)Vector2
+    clang function  "Vector2MultiplyV"          (Vector2, Vector2)Vector2
+    clang function  "Vector2Negate"             (Vector2)Vector2
+    clang function  "Vector2Divide"             (Vector2, real32)Vector2
+    clang function  "Vector2DivideV"            (Vector2, Vector2)Vector2
+    clang function  "Vector2Normalize"          (Vector2)Vector2
+    clang function  "Vector2Lerp"               (Vector2, Vector2, real32)Vector2
+
+    !Vector3 math
+    clang function  "ref Vector3Zero"               ()ref Vector3
+    clang function  "ref Vector3One"                ()ref Vector3
+    clang function  "ref Vector3Add"                (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3Subtract"           (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3Scale"              (ref Vector3, real32)ref Vector3
+    clang function  "ref Vector3Multiply"           (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3CrossProduct"       (ref Vector3, ref Vector3)real32
+    clang function  "ref Vector3Perpendicular"      (ref Vector3)ref Vector3
+    clang function  "ref Vector3Length"             (ref Vector3)real32
+    clang function  "ref Vector3DotProduct"         (ref Vector3, ref Vector3)real32
+    clang function  "ref Vector3Distance"           (ref Vector3, ref Vector3)real32
+    clang function  "ref Vector3Negate"             (ref Vector3)ref Vector3
+    clang function  "ref Vector3Divide"             (ref Vector3, real32)ref Vector3
+    clang function  "ref Vector3DivideV"            (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3Normalize"          (ref Vector3)ref Vector3
+    clang proc      "ref Vector3OrthoNormalize"     (ref Vector3, ref Vector3)
+    clang function  "ref Vector3Transform"          (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3RotateByQuaternion" (ref Vector3, ref Quaternion)ref Vector3
+    clang function  "ref Vector3Lerp"               (ref Vector3, ref Vector3, real32)ref Vector3
+    clang function  "ref Vector3Reflect"            (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3Min"                (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3Max"                (ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3Barycenter"         (ref Vector3, ref Vector3, ref Vector3, ref Vector3)ref Vector3
+    clang function  "ref Vector3ToFloatV"           (ref Vector3)float3
+
+    !Matrix math
+    clang function  "MatrixDeterminant"             (ref Matrix)real32
+    clang function  "MatrixTrace"                   (ref Matrix)real32
+    clang function  "MatrixTranspose"               (ref Matrix)ref Matrix
+    clang function  "MatrixInvert"                  (ref Matrix)ref Matrix
+    clang function  "MatrixNormalize"               (ref Matrix)ref Matrix
+    clang function  "MatrixIdentity"                ()ref Matrix
+    clang function  "MatrixAdd"                     (ref Matrix, ref Matrix)ref Matrix
+    clang function  "MatrixSubtract"                (ref Matrix, ref Matrix)ref Matrix
+    clang function  "MatrixTranslate"               (real32, real32, real32)ref Matrix
+    clang function  "MatrixRotate"                  (ref Matrix, real32)ref Matrix
+    clang function  "MatrixRotateXYZ"               (ref Vector3)ref Matrix
+    clang function  "MatrixRotateX"                 (real32)ref Matrix
+    clang function  "MatrixRotateY"                 (real32)ref Matrix
+    clang function  "MatrixRotateZ"                 (real32)ref Matrix
+    clang function  "MatrixScale"                   (real32, real32, real32)ref Matrix
+    clang function  "MatrixMultiply"                (ref Matrix, ref Matrix)ref Matrix
+    clang function  "MatrixFrustum"                 (real64, real64, real64, real64, real64, real64)ref Matrix
+    clang function  "MatrixPerspective"             (real64, real64, real64, real64)ref Matrix
+    clang function  "MatrixOrtho"                   (real64, real64, real64, real64, real64, real64)ref Matrix
+    clang function  "MatrixLookAt"                  (ref Vector3, ref Vector3, ref Vector3)ref Matrix
+    clang function  "MatrixToFloatV"                (ref Matrix)float16
+
+    !Quaternion math
+    clang function  "QuaternionIdentity"            ()ref Quaternion
+    clang function  "QuaternionLength"              (ref Quaternion)real32
+    clang function  "QuaternionNormalize"           (ref Quaternion)ref Quaternion
+    clang function  "QuaternionInvert"              (ref Quaternion)ref Quaternion
+    clang function  "QuaternionMultiply"            (ref Quaternion, ref Quaternion)ref Quaternion
+    clang function  "QuaternionLerp"                (ref Quaternion, ref Quaternion, real32)ref Quaternion
+    clang function  "QuaternionNlerp"               (ref Quaternion, ref Quaternion, real32)ref Quaternion
+    clang function  "QuaternionSlerp"               (ref Quaternion, ref Quaternion, real32)ref Quaternion
+    clang function  "QuaternionFromVector3ToVector3"(ref Vector3, ref Vector3)ref Quaternion
+    clang function  "QuaternionFromMatrix"          (ref Matrix)ref Quaternion
+    clang function  "QuaternionToMatrix"            (ref Quaternion)ref Matrix
+    clang function  "QuaternionFromAxisAngle"       (ref Vector3, real32)ref Quaternion
+    clang proc      "QuaternionToAxisAngle"         (ref Quaternion, ref Vector3, ref real32)
+    clang function  "QuaternionFromEuler"           (real32, real32, real32)ref Quaternion
+    clang function  "QuaternionToEuler"             (ref Quaternion)ref Vector3
+    clang function  "QuaternionTransform"           (ref Quaternion, ref Matrix)ref Quaternion
 end
