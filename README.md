@@ -1,6 +1,6 @@
 # raylib-mosaic
 
-These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). They are made for and only confirmed to be working with raylib v2.6.0.
+These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). They are made for and only confirmed to be working with raylib-2.6.0-Win64-mingw.
 
 You can download the compiler here: http://www.bcas.freeuk.com/mm.exe
 
