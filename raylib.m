@@ -1150,30 +1150,30 @@ importdll libraylib=
     clang function  "Vector2Lerp"               (Vector2, Vector2, real32)Vector2
 
     !Vector3 math
-    clang function  "ref Vector3Zero"               ()ref Vector3
-    clang function  "ref Vector3One"                ()ref Vector3
-    clang function  "ref Vector3Add"                (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3Subtract"           (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3Scale"              (ref Vector3, real32)ref Vector3
-    clang function  "ref Vector3Multiply"           (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3CrossProduct"       (ref Vector3, ref Vector3)real32
-    clang function  "ref Vector3Perpendicular"      (ref Vector3)ref Vector3
-    clang function  "ref Vector3Length"             (ref Vector3)real32
-    clang function  "ref Vector3DotProduct"         (ref Vector3, ref Vector3)real32
-    clang function  "ref Vector3Distance"           (ref Vector3, ref Vector3)real32
-    clang function  "ref Vector3Negate"             (ref Vector3)ref Vector3
-    clang function  "ref Vector3Divide"             (ref Vector3, real32)ref Vector3
-    clang function  "ref Vector3DivideV"            (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3Normalize"          (ref Vector3)ref Vector3
-    clang proc      "ref Vector3OrthoNormalize"     (ref Vector3, ref Vector3)
-    clang function  "ref Vector3Transform"          (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3RotateByQuaternion" (ref Vector3, ref Quaternion)ref Vector3
-    clang function  "ref Vector3Lerp"               (ref Vector3, ref Vector3, real32)ref Vector3
-    clang function  "ref Vector3Reflect"            (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3Min"                (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3Max"                (ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3Barycenter"         (ref Vector3, ref Vector3, ref Vector3, ref Vector3)ref Vector3
-    clang function  "ref Vector3ToFloatV"           (ref Vector3)float3
+    clang function  "Vector3Zero"               ()ref Vector3
+    clang function  "Vector3One"                ()ref Vector3
+    clang function  "Vector3Add"                (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3Subtract"           (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3Scale"              (ref Vector3, real32)ref Vector3
+    clang function  "Vector3Multiply"           (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3CrossProduct"       (ref Vector3, ref Vector3)real32
+    clang function  "Vector3Perpendicular"      (ref Vector3)ref Vector3
+    clang function  "Vector3Length"             (ref Vector3)real32
+    clang function  "Vector3DotProduct"         (ref Vector3, ref Vector3)real32
+    clang function  "Vector3Distance"           (ref Vector3, ref Vector3)real32
+    clang function  "Vector3Negate"             (ref Vector3)ref Vector3
+    clang function  "Vector3Divide"             (ref Vector3, real32)ref Vector3
+    clang function  "Vector3DivideV"            (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3Normalize"          (ref Vector3)ref Vector3
+    clang proc      "Vector3OrthoNormalize"     (ref Vector3, ref Vector3)
+    clang function  "Vector3Transform"          (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3RotateByQuaternion" (ref Vector3, ref Quaternion)ref Vector3
+    clang function  "Vector3Lerp"               (ref Vector3, ref Vector3, real32)ref Vector3
+    clang function  "Vector3Reflect"            (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3Min"                (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3Max"                (ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3Barycenter"         (ref Vector3, ref Vector3, ref Vector3, ref Vector3)ref Vector3
+    clang function  "Vector3ToFloatV"           (ref Vector3)float3
 
     !Matrix math
     clang function  "MatrixDeterminant"             (ref Matrix)real32
