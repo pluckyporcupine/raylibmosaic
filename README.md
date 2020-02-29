@@ -30,8 +30,10 @@ Due to reserved words and the fact that Mosaic does not currently support passin
   For example:
   `Image image = LoadImage("resources/cubicmap.png");`
   becomes
-  ```Image img
-  LoadImage(&img,"resources/cubicmap.png")```
+  ```
+  Image img
+  LoadImage(&img,"resources/cubicmap.png")
+  ```
 
   This does not apply to `Col` and `Vec2`, as they are passed back and forth as 32-bit unsigned integers.
 
