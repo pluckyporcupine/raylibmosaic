@@ -32,8 +32,6 @@ Due to reserved words and differences in calling conventions, there are a few qu
   LoadImage(&img,"resources/cubicmap.png")
   ```
 
-  This does not apply to `Col` and `Vec2`, as they are passed back and forth as 32-bit unsigned integers.
-
 ## raymath and rlgl
 
 I have not yet created bindings for raymath or rlgl.
