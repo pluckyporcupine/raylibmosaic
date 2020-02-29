@@ -16,6 +16,8 @@ Addendum: I've already found a significant number of type mismatches. For the ti
 
 Due to reserved words and differences in calling conventions, there are a few quirks.
 
+* Records (structs) of <=8 bytes that are passed to a C function must be passed by value. All others must be passed by reference. The compiler should help you in remembering this. For further clarity, compiling with the option `-recs` will show you all records in your code and their sizes. Records of <=8 bytes are marked with an `S`.
+
 * The names of several struct members have been changed to avoid namespace conflicts with reserved words. The changes are as follows:
     * max -> `max
     * min -> `min
