@@ -4,18 +4,18 @@ global const RAD2DEG=180.0/pi
 global const MAX_TOUCH_POINTS=10
 
 !basic structures
-global record Vector2=
+global record Vector2= $caligned
     r32 x
     r32 y
 end
 
-global record Vector3=
+global record Vector3= $caligned
     r32 x
     r32 y
     r32 z
 end
 
-global record Vector4=
+global record Vector4= $caligned
     r32 x
     r32 y
     r32 z
@@ -24,36 +24,36 @@ end
 
 global type Quaternion=Vector4
 
-global record Matrix=
+global record Matrix= $caligned
     r32 m0, m4, m8, m12
     r32 m1, m5, m9, m13
     r32 m2, m6, m10, m14
     r32 m3, m7, m11, m15
 end
 
-global record Color=
+global record Color= $caligned
     byte r
     byte g
     byte b
     byte a
 end
 
-global record Rectangle=
+global record Rectangle= $caligned
     r32 x
     r32 y
     r32 width
     r32 height
 end
 
-global record Image=
-    ref[]void data
+global record Image= $caligned
+    ref[0:]void data
     int32 width
     int32 height
     int32 mipmaps
     int32 format
 end
 
-global record Texture2D=
+global record Texture2D= $caligned
     u32 id
     int32 width
     int32 height
@@ -65,7 +65,7 @@ global type Texture=Texture2D
 
 global type TextureCubemap=Texture2D
 
-global record RenderTexture2D=
+global record RenderTexture2D= $caligned
     u32 id
     Texture2D txtr
     Texture2D depth
@@ -74,7 +74,7 @@ end
 
 global type RenderTexture=RenderTexture2D
 
-global record NPatchInfo=
+global record NPatchInfo= $caligned
     Rectangle sourceRec
     int32 left
     int32 top
@@ -83,7 +83,7 @@ global record NPatchInfo=
     int32 `type
 end
 
-global record CharInfo=
+global record CharInfo= $caligned
     int32 value
     int32 offsetX
     int32 offsetY
@@ -91,17 +91,17 @@ global record CharInfo=
     image image
 end
 
-global record Font=
+global record Font= $caligned
     int32 baseSize
     int32 charsCount
     Texture2D txtr
-    ref[]Rectangle recs
-    ref[]CharInfo chars
+    ref[0:]Rectangle recs
+    ref[0:]CharInfo chars
 end
 
 global type SpriteFont=Font
 
-global record Camera3D=
+global record Camera3D= $caligned
     Vector3 position
     Vector3 target
     Vector3 up
@@ -111,98 +111,98 @@ end
 
 global type Camera=Camera3D
 
-global record Camera2D=
+global record Camera2D= $caligned
     Vector2 offset
     vector2 target
     r32 rotation
     r32 zoom
 end
 
-global record Mesh=
+global record Mesh= $caligned
     int32 vertexCount
     int32 triangleCount
-    ref[]r32 vertices
-    ref[]r32 texcoords
-    ref[]r32 texcoords2
-    ref[]r32 normals
-    ref[]r32 tangents
-    ref[]char colors
-    ref[]i16 indices
-    ref[]r32 animVertices
-    ref[]r32 animNormals
-    ref[]int32 boneIds
-    ref[]r32 boneWeights
+    ref[0:]r32 vertices
+    ref[0:]r32 texcoords
+    ref[0:]r32 texcoords2
+    ref[0:]r32 normals
+    ref[0:]r32 tangents
+    ref[0:]char colors
+    ref[0:]i16 indices
+    ref[0:]r32 animVertices
+    ref[0:]r32 animNormals
+    ref[0:]int32 boneIds
+    ref[0:]r32 boneWeights
     int32 vaoId
     ref int32 vboId
 end
 
-global record Shader=
+global record Shader= $caligned
     word32 id
-    ref[]int32 locs
+    ref[0:]int32 locs
 end
 
-global record MaterialMap=
+global record MaterialMap= $caligned
     Texture2D texture
     color color
     real32 value
 end
 
-global record Material=
+global record Material= $caligned
     shader shader
-    ref[]MaterialMap maps
-    ref[]r32 params
+    ref[0:]MaterialMap maps
+    ref[0:]r32 params
 end
 
-global record Transform=
+global record Transform= $caligned
     Vector3 translation
     Quaternion rotation
     Vector3 scale
 end
 
-global record BoneInfo=
+global record BoneInfo= $caligned
     [32]byte name
     int32 parent
 end
 
-global record Model=
+global record Model= $caligned
     Matrix transform
     int32 meshCount
-    ref[]Mesh meshes
+    ref[0:]Mesh meshes
     int32 materialCount
-    ref[]Material materials
+    ref[0:]Material materials
     ref int32 meshMaterial
     int32 boneCount
-    ref[]BoneInfo bones
+    ref[0:]BoneInfo bones
     ref Transform bindPose
 end
 
 global type rTransform=ref Transform
 
-global record ModelAnimation=
+global record ModelAnimation= $caligned
     int32 boneCount
     ref BoneInfo bones
     int32 frameCount
-    ref[]rTransform framePoses
+    ref[0:]rTransform framePoses
 end
 
-global record Ray=
+global record Ray= $caligned
     Vector3 position
     Vector3 direction
 end
 
-global record RayHitInfo=
+global record RayHitInfo= $caligned
     u8 hit
     r32 distance
     Vector3 position
     Vector3 normal
 end
 
-global record BoundingBox=
+global record BoundingBox= $caligned
     Vector3 `min
     Vector3 `max
 end
 
-global record Wave=
+global record Wave= $caligned
     word32 sampleCount
     word32 sampleRate
     word32 sampleSize
@@ -210,23 +210,23 @@ global record Wave=
     ref void data
 end
 
-global record rAudioBuffer=
+global record rAudioBuffer= $caligned
     int dummy
 end
 
-global record AudioStream=
+global record AudioStream= $caligned
     word32 sampleRate
     word32 sampleSize
     word32 channels
     ref rAudioBuffer buffer
 end
 
-global record Sound=
+global record Sound= $caligned
     word32 sampleCount
     AudioStream stream
 end
 
-global record Music=
+global record Music= $caligned
     int32 ctxType
     ref void ctxData
     word32 sampleCount
@@ -234,7 +234,7 @@ global record Music=
     AudioStream stream
 end
 
-global record VrDeviceInfo=
+global record VrDeviceInfo= $caligned
     int32 hResolution
     int32 vResolution
     r32 hScreenSize
@@ -453,8 +453,8 @@ global enum (
     LOC_MAP_PREFILTER,
     LOC_MAP_BRDF )
 
-global type LOC_MAP_DIFFUSE=LOC_MAP_ALBEDO
-global type LOC_MAP_SPECULAR=LOC_MAP_METALNESS
+global const LOC_MAP_DIFFUSE=LOC_MAP_ALBEDO
+global const LOC_MAP_SPECULAR=LOC_MAP_METALNESS
 
 global enum (
     UNIFORM_FLOAT            = 0,
@@ -480,8 +480,8 @@ global enum (
     MAP_PREFILTER,
     MAP_BRDF )
 
-global type MAP_DIFFUSE=MAP_ALBEDO
-global type MAP_SPECULAR=MAP_METALNESS
+global const MAP_DIFFUSE=MAP_ALBEDO
+global const MAP_SPECULAR=MAP_METALNESS
 
 global enum (
     UNCOMPRESSED_GRAYSCALE  = 1,    ! 8 bit per pixel (no alpha)
@@ -568,7 +568,7 @@ global enum (
     NPT_3PATCH_HORIZONTAL )
 
 !need to figure out how to implement TraceLogCallback
-global record TraceLogCallback=
+global record TraceLogCallback= $caligned
     int dummy
 end
 
@@ -696,11 +696,11 @@ importdll libraylib=
     clang function  "GetDirectoryPath"          (ref char)ref char
     clang function  "GetPrevDirectoryPath"      (ref char)ref char
     clang function  "GetWorkingDirectory"       ()ref char
-    clang function  "GetDirectoryFiles"         (ref char, ref char)ref[]ichar
+    clang function  "GetDirectoryFiles"         (ref char, ref char)ref[0:]ichar
     clang proc      "ClearDirectoryFiles"       ()
     clang function  "ChangeDirectory"           (ref char)byte
     clang function  "IsFileDropped"             ()byte
-    clang function  "GetDroppedFiles"           (ref int)ref[]ichar
+    clang function  "GetDroppedFiles"           (ref int)ref[0:]ichar
     clang function  "GetFileModTime"            (ref char)int64
 
     !data compression functions
@@ -777,7 +777,7 @@ importdll libraylib=
     clang proc      "DrawLineV"                 (Vector2, Vector2, Color)
     clang proc      "DrawLineEx"                (Vector2, Vector2, real32, Color)
     clang proc      "DrawLineBezier"            (Vector2, Vector2, real32, Color)
-    clang proc      "DrawLineStrip"             (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[]Vector2"? - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
+    clang proc      "DrawLineStrip"             (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[0:]Vector2"? - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
     clang proc      "DrawCircle"                (int32, int32, real32, Color)
     clang proc      "DrawCircleSector"          (Vector2, real32, int32, int32, int32, Color)
     clang proc      "DrawCircleSectorLines"     (Vector2, real32, int32, int32, int32, Color)
@@ -801,8 +801,8 @@ importdll libraylib=
     clang proc      "DrawRectangleRoundedLines" (ref Rectangle, real32, int32, int32, Color)
     clang proc      "DrawTriangle"              (Vector2, Vector2, Vector2, Color)
     clang proc      "DrawTriangleLines"         (Vector2, Vector2, Vector2, Color)
-    clang proc      "DrawTriangleFan"           (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[]Vector2"?
-    clang proc      "DrawTriangleStrip"         (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[]Vector2"?
+    clang proc      "DrawTriangleFan"           (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[0:]Vector2"?
+    clang proc      "DrawTriangleStrip"         (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[0:]Vector2"?
     clang proc      "DrawPoly"                  (Vector2, int32, real32, real32, Color)
     clang proc      "DrawPolyLines"             (Vector2, int32, real32, real32, Color)
 
@@ -819,7 +819,7 @@ importdll libraylib=
     
     !Image/Texture2D data handling functions
     clang proc      "LoadImage"                 (ref Image, ref char)
-    clang proc      "LoadImageEx"               (ref Image, ref Color, int32, int32)  ! unsure if "ref Color" will work here. definitely an array. "ref[]Color"?
+    clang proc      "LoadImageEx"               (ref Image, ref Color, int32, int32)  ! unsure if "ref Color" will work here. definitely an array. "ref[0:]Color"?
     clang proc      "LoadImagePro"              (ref Image, ref void, int32, int32, int32)
     clang proc      "LoadImageRaw"              (ref Image, ref char, int32, int32, int32, int32)
     clang proc      "ExportImage"               (ref Image, ref char)
@@ -842,7 +842,7 @@ importdll libraylib=
     !Image manipulation functions
     clang proc      "ImageCopy"                 (ref Image, ref Image)
     clang proc      "ImageFromImage"            (ref Image, ref Image, ref Rectangle)
-    clang proc      "ImagetoPOT"                (ref Image, Color)                    ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer. "ref[]Image"? - RLAPI void ImageToPOT(Image *image, Color fillColor);
+    clang proc      "ImagetoPOT"                (ref Image, Color)                    ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer. "ref[0:]Image"? - RLAPI void ImageToPOT(Image *image, Color fillColor);
     clang proc      "ImageFormat"               (ref Image, int32)
     clang proc      "ImageAlphaMask"            (ref Image, ref Image)
     clang proc      "ImageAlphaClear"           (ref Image, Color, real32)
@@ -927,8 +927,8 @@ importdll libraylib=
     clang function  "TextSubtext"               (ref char, int32, int32)ref char
     clang function  "TextReplace"               (ref char, ref char, ref char)ref char
     clang function  "TextInsert"                (ref char, ref char, int32)ref char
-    clang function  "TextJoin"                  (ref[]ichar, int32, ref char)ref char
-    clang function  "TextSplit"                 (ref char, ref char, ref int32)ref[]ichar
+    clang function  "TextJoin"                  (ref[0:]ichar, int32, ref char)ref char
+    clang function  "TextSplit"                 (ref char, ref char, ref int32)ref[0:]ichar
     clang proc      "TextAppend"                (ref char, ref char, ref int32)
     clang function  "TextFindIndex"             (ref char, ref char)int32
     clang function  "TextToUpper"               (ref char)ref char
