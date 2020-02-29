@@ -602,24 +602,6 @@ global Color MAGENTA=(255,0,255,255)
 global Color RAYWHITE=(245,245,245,255)
 
 !compatibility
-global function $c2w32(Color &c)Col=
-     cast(&c,ref Col)^
-end
-
-global function $v22w32(Vector2 &v2)Vec2=
-     cast(&v2,ref Vec2)^
-end
-
-global function newcol(Col c)ref Color=
-    return cast(&c)
-end
-
-global function newvec2(Vec2 v2)ref Vector2=
-    return cast(&v2)
-end
-
-global type Col=word32
-global type Vec2=word32
 
 importdll libraylib=
     !core module
@@ -647,7 +629,7 @@ importdll libraylib=
     clang function  "GetMonitorHeight"          (int32)int32
     clang function  "GetMonitorPhysicalWidth"   (int32)int32
     clang function  "GetMonitorPhysicalHeight"  (int32)int32
-    clang function  "GetWindowPosition"         ()Vec2
+    clang function  "GetWindowPosition"         ()Vector2
     clang function  "GetMonitorName"            (int32)ref char
     clang function  "GetClipboardText"          ()ref char
     clang proc      "SetClipboardText"          (ref char)
@@ -660,7 +642,7 @@ importdll libraylib=
     clang proc      "DisableCursor"             ()
 
     !drawing functions
-    clang proc      "ClearBackground"           (Col)
+    clang proc      "ClearBackground"           (Color)
     clang proc      "BeginDrawing"              ()
     clang proc      "EndDrawing"                ()
     clang proc      "BeginMode2D"               (ref Camera2D)
@@ -673,13 +655,13 @@ importdll libraylib=
     clang proc      "EndScissorMode"            ()
 
     !screen space functions
-    clang proc      "GetMouseRay"               (ref Ray, Vec2, ref Camera)
+    clang proc      "GetMouseRay"               (ref Ray, Vector2, ref Camera)
     clang proc      "GetCameraMatrix"           (ref Matrix, ref Camera)
     clang proc      "GetCameraMatrix2D"         (ref Matrix, ref Camera2D)
-    clang function  "GetWorldToScreen"          (ref Vector3, ref Camera)Vec2
-    clang function  "GetWorldToScreenEx"        (ref Vector3, ref Camera, int32, int32)Vec2
-    clang function  "GetWorldToScreen2D"        (Vec2, ref Camera2D)Vec2
-    clang function  "GetScreenToWorld2D"        (Vec2, ref Camera2D)Vec2
+    clang function  "GetWorldToScreen"          (ref Vector3, ref Camera)Vector2
+    clang function  "GetWorldToScreenEx"        (ref Vector3, ref Camera, int32, int32)Vector2
+    clang function  "GetWorldToScreen2D"        (Vector2, ref Camera2D)Vector2
+    clang function  "GetScreenToWorld2D"        (Vector2, ref Camera2D)Vector2
 
     !timing functions
     clang proc      "SetTargetFPS"              (int32)
@@ -688,13 +670,13 @@ importdll libraylib=
     clang function  "GetTime"                   ()real64
 
     !color functions
-    clang function  "ColorToInt"                (Col)int32
-    clang proc      "ColorNormalize"            (ref Vector4, Col)
-    clang function  "ColorFromNormalize"        (ref Vector4)Col
-    clang proc      "ColorToHSV"                (ref Vector3, Col)
-    clang function  "ColorFromHSV"              (ref Vector3)Col
-    clang function  "GetColor"                  (int32)Col
-    clang function  "Fade"                      (Col, real32)Col
+    clang function  "ColorToInt"                (Color)int32
+    clang proc      "ColorNormalize"            (ref Vector4, Color)
+    clang function  "ColorFromNormalize"        (ref Vector4)Color
+    clang proc      "ColorToHSV"                (ref Vector3, Color)
+    clang function  "ColorFromHSV"              (ref Vector3)Color
+    clang function  "GetColor"                  (int32)Color
+    clang function  "Fade"                      (Color, real32)Color
 
     !misc functions
     clang proc      "SetConfigFlags"            (u32)
@@ -758,7 +740,7 @@ importdll libraylib=
     clang function  "IsMouseButtonUp"           (int32)byte
     clang function  "GetMouseX"                 ()int32
     clang function  "GetMouseY"                 ()int32
-    clang function  "GetMousePosition"          ()Vec2
+    clang function  "GetMousePosition"          ()Vector2
     clang proc      "SetMousePosition"          (int32, int32)
     clang proc      "SetMouseOffset"            (int32, int32)
     clang proc      "SetMouseScale0"            (real32, real32)
@@ -767,7 +749,7 @@ importdll libraylib=
     !touch input functions
     clang function  "GetTouchX"                 ()int32
     clang function  "GetTouchY"                 ()int32
-    clang function  "GetTouchPosition"          (int32)Vec2
+    clang function  "GetTouchPosition"          (int32)Vector2
 
     !gesture/touch handling functions
     clang proc      "SetGesturesEnabled"        (u32)
@@ -775,9 +757,9 @@ importdll libraylib=
     clang function  "GetGestureDetected"        ()int32
     clang function  "GetTouchPointsCount"       ()int32
     clang function  "GetGestureHoldDuration"    ()real32
-    clang function  "GetGestureDragVector"      ()Vec2
+    clang function  "GetGestureDragVector"      ()Vector2
     clang function  "GetGestureDragAngle"       ()real32
-    clang function  "GetGesturePinchVector"     ()Vec2
+    clang function  "GetGesturePinchVector"     ()Vector2
     clang function  "GetGesturePinchAngle"      ()real32
 
     !camera functions
@@ -789,55 +771,55 @@ importdll libraylib=
     clang proc      "SetCameraMoveControls"     (int32, int32, int32, int32, int32, int32)
 
     !basic shapes drawing functions
-    clang proc      "DrawPixel"                 (int32, int32, Col)
-    clang proc      "DrawlPixelV"               (Vec2, Col)
-    clang proc      "DrawLine"                  (int32, int32, int32, int32, Col)
-    clang proc      "DrawLineV"                 (Vec2, Vec2, Col)
-    clang proc      "DrawLineEx"                (Vec2, Vec2, real32, Col)
-    clang proc      "DrawLineBezier"            (Vec2, Vec2, real32, Col)
-    clang proc      "DrawLineStrip"             (ref Vec2, int32, Col)              ! unsure if "ref Vec2" will work here. definitely an array. "ref[]Vec2"? - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
-    clang proc      "DrawCircle"                (int32, int32, real32, Col)
-    clang proc      "DrawCircleSector"          (Vec2, real32, int32, int32, int32, Col)
-    clang proc      "DrawCircleSectorLines"     (Vec2, real32, int32, int32, int32, Col)
-    clang proc      "DrawCircleGradient"        (int32, int32, real32, Col, Col)
-    clang proc      "DrawCircleV"               (Vec2, real32, Col)
-    clang proc      "DrawCircleLines"           (int32, int32, float32, Col)
-    clang proc      "DrawEllipse"               (int32, int32, real32, real32, Col)
-    clang proc      "DrawEllipseLines"          (int32, int32, real32, real32, Col)
-    clang proc      "DrawRing"                  (Vec2, real32, real32, int32, int32, int32, Col)
-    clang proc      "DrawRingLines"             (Vec2, real32, real32, int32, int32, int32, Col)
-    clang proc      "DrawRectangle"             (int32, int32, int32, int32, Col)
-    clang proc      "DrawRectangleV"            (Vec2, Vec2, Col)
-    clang proc      "DrawRectangleRec"          (ref Rectangle, Col)
-    clang proc      "DrawRectanglePro"          (ref Rectangle, Vec2, real32, Col)
-    clang proc      "DrawRectangleGradientV"    (int32, int32, int32, int32, Col, Col)
-    clang proc      "DrawRectangleGradientH"    (int32, int32, int32, int32, Col, Col)
-    clang proc      "DrawRectangleGradientEx"   (ref Rectangle, Col, Col, Col, Col)
-    clang proc      "DrawRectangleLines"        (int32, int32, int32, int32, Col)
-    clang proc      "DrawRectangleLinesEx"      (ref Rectangle, int32, Col)
-    clang proc      "DrawRectangleRounded"      (ref Rectangle, real32, int32, Col)
-    clang proc      "DrawRectangleRoundedLines" (ref Rectangle, real32, int32, int32, Col)
-    clang proc      "DrawTriangle"              (Vec2, Vec2, Vec2, Col)
-    clang proc      "DrawTriangleLines"         (Vec2, Vec2, Vec2, Col)
-    clang proc      "DrawTriangleFan"           (ref Vec2, int32, Col)              ! unsure if "ref Vec2" will work here. definitely an array. "ref[]Vec2"?
-    clang proc      "DrawTriangleStrip"         (ref Vec2, int32, Col)              ! unsure if "ref Vec2" will work here. definitely an array. "ref[]Vec2"?
-    clang proc      "DrawPoly"                  (Vec2, int32, real32, real32, Col)
-    clang proc      "DrawPolyLines"             (Vec2, int32, real32, real32, Col)
+    clang proc      "DrawPixel"                 (int32, int32, Color)
+    clang proc      "DrawlPixelV"               (Vector2, Color)
+    clang proc      "DrawLine"                  (int32, int32, int32, int32, Color)
+    clang proc      "DrawLineV"                 (Vector2, Vector2, Color)
+    clang proc      "DrawLineEx"                (Vector2, Vector2, real32, Color)
+    clang proc      "DrawLineBezier"            (Vector2, Vector2, real32, Color)
+    clang proc      "DrawLineStrip"             (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[]Vector2"? - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
+    clang proc      "DrawCircle"                (int32, int32, real32, Color)
+    clang proc      "DrawCircleSector"          (Vector2, real32, int32, int32, int32, Color)
+    clang proc      "DrawCircleSectorLines"     (Vector2, real32, int32, int32, int32, Color)
+    clang proc      "DrawCircleGradient"        (int32, int32, real32, Color, Color)
+    clang proc      "DrawCircleV"               (Vector2, real32, Color)
+    clang proc      "DrawCircleLines"           (int32, int32, float32, Color)
+    clang proc      "DrawEllipse"               (int32, int32, real32, real32, Color)
+    clang proc      "DrawEllipseLines"          (int32, int32, real32, real32, Color)
+    clang proc      "DrawRing"                  (Vector2, real32, real32, int32, int32, int32, Color)
+    clang proc      "DrawRingLines"             (Vector2, real32, real32, int32, int32, int32, Color)
+    clang proc      "DrawRectangle"             (int32, int32, int32, int32, Color)
+    clang proc      "DrawRectangleV"            (Vector2, Vector2, Color)
+    clang proc      "DrawRectangleRec"          (ref Rectangle, Color)
+    clang proc      "DrawRectanglePro"          (ref Rectangle, Vector2, real32, Color)
+    clang proc      "DrawRectangleGradientV"    (int32, int32, int32, int32, Color, Color)
+    clang proc      "DrawRectangleGradientH"    (int32, int32, int32, int32, Color, Color)
+    clang proc      "DrawRectangleGradientEx"   (ref Rectangle, Color, Color, Color, Color)
+    clang proc      "DrawRectangleLines"        (int32, int32, int32, int32, Color)
+    clang proc      "DrawRectangleLinesEx"      (ref Rectangle, int32, Color)
+    clang proc      "DrawRectangleRounded"      (ref Rectangle, real32, int32, Color)
+    clang proc      "DrawRectangleRoundedLines" (ref Rectangle, real32, int32, int32, Color)
+    clang proc      "DrawTriangle"              (Vector2, Vector2, Vector2, Color)
+    clang proc      "DrawTriangleLines"         (Vector2, Vector2, Vector2, Color)
+    clang proc      "DrawTriangleFan"           (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[]Vector2"?
+    clang proc      "DrawTriangleStrip"         (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[]Vector2"?
+    clang proc      "DrawPoly"                  (Vector2, int32, real32, real32, Color)
+    clang proc      "DrawPolyLines"             (Vector2, int32, real32, real32, Color)
 
     clang proc      "SetShapesTexture"          (ref Texture2D, ref Rectangle)
 
     !basic shapes collision detection functions
     clang function  "CheckCollisionRecs"        (ref Rectangle, ref Rectangle)byte
-    clang function  "CheckCollisionCircles"     (Vec2, real32, Vec2, real32)byte
-    clang function  "CheckCollisionCircleRec"   (Vec2, real32, ref Rectangle)byte
+    clang function  "CheckCollisionCircles"     (Vector2, real32, Vector2, real32)byte
+    clang function  "CheckCollisionCircleRec"   (Vector2, real32, ref Rectangle)byte
     clang proc      "GetCollisionRec"           (ref Rectangle, ref Rectangle, ref Rectangle)
-    clang function  "CheckCollisionPointRec"    (Vec2, ref Rectangle)byte
-    clang function  "CheckCollisionPointCircle" (Vec2, Vec2, real32)byte
-    clang function  "CheckCollisionPointTriangle"   (Vec2, Vec2, Vec2, Vec2)byte
+    clang function  "CheckCollisionPointRec"    (Vector2, ref Rectangle)byte
+    clang function  "CheckCollisionPointCircle" (Vector2, Vector2, real32)byte
+    clang function  "CheckCollisionPointTriangle"   (Vector2, Vector2, Vector2, Vector2)byte
     
     !Image/Texture2D data handling functions
     clang proc      "LoadImage"                 (ref Image, ref char)
-    clang proc      "LoadImageEx"               (ref Image, ref Col, int32, int32)  ! unsure if "ref Col" will work here. definitely an array. "ref[]Col"?
+    clang proc      "LoadImageEx"               (ref Image, ref Color, int32, int32)  ! unsure if "ref Color" will work here. definitely an array. "ref[]Color"?
     clang proc      "LoadImagePro"              (ref Image, ref void, int32, int32, int32)
     clang proc      "LoadImageRaw"              (ref Image, ref char, int32, int32, int32, int32)
     clang proc      "ExportImage"               (ref Image, ref char)
@@ -849,7 +831,7 @@ importdll libraylib=
     clang proc      "UnloadImage"               (ref Image)
     clang proc      "UnloadTexture"             (ref Texture2D)
     clang proc      "UnloadRenderTexture"       (ref RenderTexture2D)
-    clang function  "GetImageData"              (ref Image)ref Col
+    clang function  "GetImageData"              (ref Image)ref Color
     clang proc      "GetImageDataNormalized"    (ref Vector4, ref Image)
     clang proc      "GetImageAlphaBorder"       (ref Rectangle, ref Image, real32)
     clang function  "GetPixelDataSize"          (int32, int32, int32)int32
@@ -860,43 +842,43 @@ importdll libraylib=
     !Image manipulation functions
     clang proc      "ImageCopy"                 (ref Image, ref Image)
     clang proc      "ImageFromImage"            (ref Image, ref Image, ref Rectangle)
-    clang proc      "ImagetoPOT"                (ref Image, Col)                    ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer. "ref[]Image"? - RLAPI void ImageToPOT(Image *image, Color fillColor);
+    clang proc      "ImagetoPOT"                (ref Image, Color)                    ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer. "ref[]Image"? - RLAPI void ImageToPOT(Image *image, Color fillColor);
     clang proc      "ImageFormat"               (ref Image, int32)
     clang proc      "ImageAlphaMask"            (ref Image, ref Image)
-    clang proc      "ImageAlphaClear"           (ref Image, Col, real32)
+    clang proc      "ImageAlphaClear"           (ref Image, Color, real32)
     clang proc      "ImageAlphaCrop"            (ref Image, real32)
     clang proc      "ImageAlphaPremultiply"     (ref Image)
     clang proc      "ImageCrop"                 (ref Image, ref Rectangle)
     clang proc      "ImageResize"               (ref Image, int32, int32)
     clang proc      "ImageResizeNN"             (ref Image, int32, int32)
-    clang proc      "ImageResizeCanvas"         (ref Image, int32, int32, int32, int32, Col)
+    clang proc      "ImageResizeCanvas"         (ref Image, int32, int32, int32, int32, Color)
     clang proc      "ImageMipmaps"              (ref Image)
     clang proc      "ImageDither"               (ref Image, int32, int32, int32, int32)
-    clang function  "ImageExtractPalette"       (ref Image, int32, ref int32)ref Col
-    clang proc      "ImageText"                 (ref Image, ref char, int32, Col)
-    clang proc      "ImageTextEx"               (ref Image, ref Font, ref char, real32, real32, Col)
-    clang proc      "ImageDraw"                 (ref Image, ref Image, ref Rectangle, ref Rectangle, Col)
-    clang proc      "ImageDrawRectangle"        (ref Image, ref Rectangle, Col)
-    clang proc      "ImageDrawRectangleLines"   (ref Image, ref Rectangle, int32, Col)
-    clang proc      "ImageDrawText"             (ref Image, Vec2, ref char, int32, Col)
-    clang proc      "ImageDrawTextEx"           (ref Image, Vec2, ref Font, ref char, real32, real32, Col)
+    clang function  "ImageExtractPalette"       (ref Image, int32, ref int32)ref Color
+    clang proc      "ImageText"                 (ref Image, ref char, int32, Color)
+    clang proc      "ImageTextEx"               (ref Image, ref Font, ref char, real32, real32, Color)
+    clang proc      "ImageDraw"                 (ref Image, ref Image, ref Rectangle, ref Rectangle, Color)
+    clang proc      "ImageDrawRectangle"        (ref Image, ref Rectangle, Color)
+    clang proc      "ImageDrawRectangleLines"   (ref Image, ref Rectangle, int32, Color)
+    clang proc      "ImageDrawText"             (ref Image, Vector2, ref char, int32, Color)
+    clang proc      "ImageDrawTextEx"           (ref Image, Vector2, ref Font, ref char, real32, real32, Color)
     clang proc      "ImageFlipVertical"         (ref Image)
     clang proc      "ImageFlipHorizontal"       (ref Image)
     clang proc      "ImageRotateCW"             (ref Image)
     clang proc      "ImageRotateCCW"            (ref Image)
-    clang proc      "ImageColorTint"            (ref Image, Col)
+    clang proc      "ImageColorTint"            (ref Image, Color)
     clang proc      "ImageColorInvert"          (ref Image)
     clang proc      "ImageColorGrayscale"       (ref Image)
     clang proc      "ImageColorContrast"        (ref Image, real32)
     clang proc      "ImageColorBrightness"      (ref Image, int32)
-    clang proc      "ImageColorReplace"         (ref Image, Col, Col)
+    clang proc      "ImageColorReplace"         (ref Image, Color, Color)
 
     !Image generation functions
-    clang proc      "GenImageColor"             (ref Image, int32, int32, Col)
-    clang proc      "GenImageGradientV"         (ref Image, int32, int32, Col, Col)
-    clang proc      "GenImageGradientH"         (ref Image, int32, int32, Col, Col)
-    clang proc      "GenImageGradientRadial"    (ref Image, int32, int32, real32, Col, Col)
-    clang proc      "GenImageChecked"           (ref Image, int32, int32, int32, int32, Col, Col)
+    clang proc      "GenImageColor"             (ref Image, int32, int32, Color)
+    clang proc      "GenImageGradientV"         (ref Image, int32, int32, Color, Color)
+    clang proc      "GenImageGradientH"         (ref Image, int32, int32, Color, Color)
+    clang proc      "GenImageGradientRadial"    (ref Image, int32, int32, real32, Color, Color)
+    clang proc      "GenImageChecked"           (ref Image, int32, int32, int32, int32, Color, Color)
     clang proc      "GenImageWhiteNoise"        (ref Image, int32, int32, real32)
     clang proc      "GenImagePerlinNoise"       (ref Image, int32, int32, int32, int32, real32)
     clang proc      "GenImageCellular"          (ref Image, int32, int32, int32)
@@ -907,34 +889,34 @@ importdll libraylib=
     clang proc      "SetTextureWrap"            (ref Texture2D, int32)
 
     !Texture2D drawing functions
-    clang proc      "DrawTexture"               (ref Texture2D, int32, int32, Col)
-    clang proc      "DrawTextureV"              (ref Texture2D, Vec2, Col)
-    clang proc      "DrawTextureEx"             (ref Texture2D, Vec2, real32, real32, Col)
-    clang proc      "DrawTextureRec"            (ref Texture2D, ref Rectangle, Vec2, Col)
-    clang proc      "DrawTextureQuad"           (ref Texture2D, Vec2, Vec2, ref Rectangle, Col)
-    clang proc      "DrawTexturePro"            (ref Texture2D, ref Rectangle, ref Rectangle, Vec2, real32, Col)
-    clang proc      "DrawTextureNPatch"         (ref Texture2D, ref NPatchInfo, ref Rectangle, Vec2, real32, Col)
+    clang proc      "DrawTexture"               (ref Texture2D, int32, int32, Color)
+    clang proc      "DrawTextureV"              (ref Texture2D, Vector2, Color)
+    clang proc      "DrawTextureEx"             (ref Texture2D, Vector2, real32, real32, Color)
+    clang proc      "DrawTextureRec"            (ref Texture2D, ref Rectangle, Vector2, Color)
+    clang proc      "DrawTextureQuad"           (ref Texture2D, Vector2, Vector2, ref Rectangle, Color)
+    clang proc      "DrawTexturePro"            (ref Texture2D, ref Rectangle, ref Rectangle, Vector2, real32, Color)
+    clang proc      "DrawTextureNPatch"         (ref Texture2D, ref NPatchInfo, ref Rectangle, Vector2, real32, Color)
 
     !font (un)loading functions
     clang proc      "GetFontDefault"            (ref Font)
     clang proc      "LoadFont"                  (ref Font, ref char)
     clang proc      "LoadFontEx"                (ref Font, ref char, int32, ref int32, int32)
-    clang proc      "LoadFontFromImage"         (ref Font, ref Image, Col, int32)
+    clang proc      "LoadFontFromImage"         (ref Font, ref Image, Color, int32)
     clang proc      "LoadFontData"              (ref CharInfo, ref char, int32, ref int32, int32, int32)                !unsure if "ref CharInfo" will work here - CharInfo *LoadFontData(const char *fileName, int fontSize, int *fontChars, int charsCount, int type);
     clang proc      "GenImageFontAtlas"         (ref Image, ref CharInfo, ref Rectangle, int32, int32, int32, int32)    !unsure if "ref Rectangle" will work here - RLAPI Image GenImageFontAtlas(const CharInfo *chars, Rectangle **recs, int charsCount, int fontSize, int padding, int packMethod);
     clang proc      "UnloadFont"                (ref Font)
 
     !text drawing functions
     clang proc      "DrawFPS"                   (int32, int32)
-    clang proc      "DrawText"                  (ref char, int32, int32, int32, Col)
-    clang proc      "DrawTextEx"                (ref Font, ref char, Vec2, real32, real32, Col)
-    clang proc      "DrawTextRec"               (ref Font, ref char, ref Rectangle, real32, real32, byte, Col)
-    clang proc      "DrawTextRecEx"             (ref Font, ref char, ref Rectangle, real32, real32, byte, Col, int32, int32, Col, Col)
-    clang proc      "DrawTextCodepoint"         (ref Font, int32, Vec2, real32, Col)
+    clang proc      "DrawText"                  (ref char, int32, int32, int32, Color)
+    clang proc      "DrawTextEx"                (ref Font, ref char, Vector2, real32, real32, Color)
+    clang proc      "DrawTextRec"               (ref Font, ref char, ref Rectangle, real32, real32, byte, Color)
+    clang proc      "DrawTextRecEx"             (ref Font, ref char, ref Rectangle, real32, real32, byte, Color, int32, int32, Color, Color)
+    clang proc      "DrawTextCodepoint"         (ref Font, int32, Vector2, real32, Color)
 
     !text misc functions
     clang function  "MeasureText"               (ref char, int32)int32
-    clang function  "MeasureTextEx"             (ref Font, ref char, real32, real32)Vec2
+    clang function  "MeasureTextEx"             (ref Font, ref char, real32, real32)Vector2
     clang function  "GetGlyphIndex"             (ref Font, int32)int32
 
     !text strings management functions
@@ -956,21 +938,21 @@ importdll libraylib=
     clang function  "TextToUtf8"                (ref int32, int32)ref char
 
     !basic geometric 3D shapes drawing functions
-    clang proc      "DrawLine3D"                (ref Vector3, ref Vector3, Col)
-    clang proc      "DrawPoint3D"               (ref Vector3, Col)
-    clang proc      "DrawCircle3D"              (ref Vector3, real32, ref Vector3, real32, Col)
-    clang proc      "DrawCube"                  (ref Vector3, real32, real32, real32, Col)
-    clang proc      "DrawCubeV"                 (ref Vector3, ref Vector3, Col)
-    clang proc      "DrawCubeWires"             (ref Vector3, real32, real32, real32, Col)
-    clang proc      "DrawCubeWiresV"            (ref Vector3, ref Vector3, Col)
-    clang proc      "DrawCubeTexture"           (ref Texture2D, ref Vector3, real32, real32, real32, Col)
-    clang proc      "DrawSphere"                (ref Vector3, real32, Col)
-    clang proc      "DrawSphereEx"              (ref Vector3, real32, int32, int32, Col)
-    clang proc      "DrawSphereWires"           (ref Vector3, real32, int32, int32, Col)
-    clang proc      "DrawCylinder"              (ref Vector3, real32, real32, real32, int32, Col)
-    clang proc      "DrawCylinderWires"         (ref Vector3, real32, real32, real32, int32, Col)
-    clang proc      "DrawPlane"                 (ref Vector3, Vec2, Col)
-    clang proc      "DrawRay"                   (ref Ray, Col)
+    clang proc      "DrawLine3D"                (ref Vector3, ref Vector3, Color)
+    clang proc      "DrawPoint3D"               (ref Vector3, Color)
+    clang proc      "DrawCircle3D"              (ref Vector3, real32, ref Vector3, real32, Color)
+    clang proc      "DrawCube"                  (ref Vector3, real32, real32, real32, Color)
+    clang proc      "DrawCubeV"                 (ref Vector3, ref Vector3, Color)
+    clang proc      "DrawCubeWires"             (ref Vector3, real32, real32, real32, Color)
+    clang proc      "DrawCubeWiresV"            (ref Vector3, ref Vector3, Color)
+    clang proc      "DrawCubeTexture"           (ref Texture2D, ref Vector3, real32, real32, real32, Color)
+    clang proc      "DrawSphere"                (ref Vector3, real32, Color)
+    clang proc      "DrawSphereEx"              (ref Vector3, real32, int32, int32, Color)
+    clang proc      "DrawSphereWires"           (ref Vector3, real32, int32, int32, Color)
+    clang proc      "DrawCylinder"              (ref Vector3, real32, real32, real32, int32, Color)
+    clang proc      "DrawCylinderWires"         (ref Vector3, real32, real32, real32, int32, Color)
+    clang proc      "DrawPlane"                 (ref Vector3, Vector2, Color)
+    clang proc      "DrawRay"                   (ref Ray, Color)
     clang proc      "DrawGrid"                  (int32, real32)
     clang proc      "DrawGizmo"                 (ref Vector3)
 
@@ -1015,13 +997,13 @@ importdll libraylib=
     clang proc      "MeshBinormals"             (ref Mesh)
 
     !model drawing functions
-    clang proc      "DrawModel"                 (ref Model, ref Vector3, real32, Col)
-    clang proc      "DrawModelEx"               (ref Model, ref Vector3, ref Vector3, real32, ref Vector3, Col)
-    clang proc      "DrawModelWires"            (ref Model, ref Vector3, real32, Col)
-    clang proc      "DrawModelWiresEx"          (ref Model, ref Vector3, ref Vector3, real32, ref Vector3, Col)
-    clang proc      "DrawBoundingBox"           (ref BoundingBox, Col)
-    clang proc      "DrawBillboard"             (ref Camera, ref Texture2D, ref Vector3, real32, Col)
-    clang proc      "DrawBillboardRec"          (ref Camera, ref Texture2D, ref Rectangle, ref Vector3, real32, Col)
+    clang proc      "DrawModel"                 (ref Model, ref Vector3, real32, Color)
+    clang proc      "DrawModelEx"               (ref Model, ref Vector3, ref Vector3, real32, ref Vector3, Color)
+    clang proc      "DrawModelWires"            (ref Model, ref Vector3, real32, Color)
+    clang proc      "DrawModelWiresEx"          (ref Model, ref Vector3, ref Vector3, real32, ref Vector3, Color)
+    clang proc      "DrawBoundingBox"           (ref BoundingBox, Color)
+    clang proc      "DrawBillboard"             (ref Camera, ref Texture2D, ref Vector3, real32, Color)
+    clang proc      "DrawBillboardRec"          (ref Camera, ref Texture2D, ref Rectangle, ref Vector3, real32, Color)
 
     !3D collision detection functions
     clang function  "CheckCollisionSpheres"     (ref Vector3, real32, ref Vector3, real32)byte
