@@ -54,38 +54,38 @@ proc start=
 
         BeginDrawing()
 
-            ClearBackground($c2w32(RAYWHITE))
+            ClearBackground(RAYWHITE)
 
             BeginMode2D(&camera)
 
-                DrawRectangle(-6000,320,13000,8000,$c2w32(DARKGRAY))
+                DrawRectangle(-6000,320,13000,8000,DARKGRAY)
 
                 for i:=0 to MAX_BUILDINGS do
-                    DrawRectangleRec(&buildings[i],$c2w32(buildColors[i]))
+                    DrawRectangleRec(&buildings[i],buildColors[i])
                 od
 
-                DrawRectangleRec(&player,$c2w32(RED))
+                DrawRectangleRec(&player,RED)
 
-                DrawLine(camera.target.x,-screenHeight*10,camera.target.x,screenHeight*10,$c2w32(GREEN))
-                DrawLine(-screenWidth*10,camera.target.y,screenWidth*10,camera.target.y,$c2w32(GREEN))
+                DrawLine(camera.target.x,-screenHeight*10,camera.target.x,screenHeight*10,GREEN)
+                DrawLine(-screenWidth*10,camera.target.y,screenWidth*10,camera.target.y,GREEN)
             
             EndMode2D()
 
-            DrawText(cast("SCREEN AREA"),640,10,20,$c2w32(RED))
+            DrawText(cast("SCREEN AREA"),640,10,20,RED)
 
-            DrawRectangle(0,0,screenWidth,5,$c2w32(RED))
-            DrawRectangle(0,5,5,screenHeight-10,$c2w32(RED))
-            DrawRectangle(screenWidth-5,5,5,screenHeight-10,$c2w32(RED))
-            DrawRectangle(0,screenHeight-5,screenWidth,5,$c2w32(RED))
+            DrawRectangle(0,0,screenWidth,5,RED)
+            DrawRectangle(0,5,5,screenHeight-10,RED)
+            DrawRectangle(screenWidth-5,5,5,screenHeight-10,RED)
+            DrawRectangle(0,screenHeight-5,screenWidth,5,RED)
 
-            DrawRectangle(10,10,250,113,Fade($c2w32(SKYBLUE),0.5))
-            DrawRectangleLines(10,10,250,113,$c2w32(BLUE))
+            DrawRectangle(10,10,250,113,Fade(SKYBLUE,0.5))
+            DrawRectangleLines(10,10,250,113,BLUE)
 
-            DrawText(cast("Free 2d camera controls:"),20,20,10,$c2w32(BLACK))
-            DrawText(cast("- Right/Left to move Offset"),40,40,10,$c2w32(DARKGRAY))
-            DrawText(cast("- Mouse Wheel to Zoom in-out"),40,60,10,$c2w32(DARKGRAY))
-            DrawText(cast("- A/S to Rotate"),40,80,10,$c2w32(DARKGRAY))
-            DrawText(cast("- R to reset Zoom and Rotation"),40,100,10,$c2w32(DARKGRAY))
+            DrawText(cast("Free 2d camera controls:"),20,20,10,BLACK)
+            DrawText(cast("- Right/Left to move Offset"),40,40,10,DARKGRAY)
+            DrawText(cast("- Mouse Wheel to Zoom in-out"),40,60,10,DARKGRAY)
+            DrawText(cast("- A/S to Rotate"),40,80,10,DARKGRAY)
+            DrawText(cast("- R to reset Zoom and Rotation"),40,100,10,DARKGRAY)
 
         EndDrawing()
     od
