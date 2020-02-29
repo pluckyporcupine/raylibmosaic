@@ -28,8 +28,7 @@ Due to reserved words and the fact that Mosaic does not currently support passin
 * Due to differences in calling conventions, a reference to the variable that you want to store the data returned by any function that returns a struct in must become its first argument.
 
   For example:
-  `Image image = LoadImage("resources/cubicmap.png");`
-  becomes
+  `Image image = LoadImage("resources/cubicmap.png");` becomes
   ```
   Image img
   LoadImage(&img,"resources/cubicmap.png")
