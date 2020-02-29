@@ -25,6 +25,16 @@ Due to reserved words and the fact that Mosaic does not currently support passin
     * min -> `min
     * type -> `type
 
+* Due to differences in calling conventions, a reference to the variable that you want to store the data returned by any function that returns a struct in must become its first argument.
+
+  For example:
+  `Image image = LoadImage("resources/cubicmap.png");`
+  becomes
+  ```Image img
+  LoadImage(&img,"resources/cubicmap.png")```
+
+  This does not apply to `Col` and `Vec2`, as they are passed back and forth as 32-bit unsigned integers.
+
 ## raymath and rlgl
 
 I have not yet created bindings for raymath or rlgl.

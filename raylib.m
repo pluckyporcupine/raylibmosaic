@@ -46,7 +46,7 @@ global record Rectangle=
 end
 
 global record Image=
-    ref void data
+    ref[]void data
     int32 width
     int32 height
     int32 mipmaps
@@ -95,8 +95,8 @@ global record Font=
     int32 baseSize
     int32 charsCount
     Texture2D txtr
-    ref Rectangle recs
-    ref CharInfo chars
+    ref[]Rectangle recs
+    ref[]CharInfo chars
 end
 
 global type SpriteFont=Font
@@ -121,36 +121,36 @@ end
 global record Mesh=
     int32 vertexCount
     int32 triangleCount
-    ref r32 vertices
-    ref r32 texcoords
-    ref r32 texcoords2
-    ref r32 normals
-    ref r32 tangents
-    ref char colors
-    ref i16 indices
-    ref r32 animVertices
-    ref r32 animNormals
-    ref int32 boneIds
-    ref r32 boneWeights
-    ref int32 vaoId
+    ref[]r32 vertices
+    ref[]r32 texcoords
+    ref[]r32 texcoords2
+    ref[]r32 normals
+    ref[]r32 tangents
+    ref[]char colors
+    ref[]i16 indices
+    ref[]r32 animVertices
+    ref[]r32 animNormals
+    ref[]int32 boneIds
+    ref[]r32 boneWeights
+    int32 vaoId
     ref int32 vboId
 end
 
 global record Shader=
     word32 id
-    ref int32 locs
+    ref[]int32 locs
 end
 
 global record MaterialMap=
     Texture2D texture
     color color
-    ref real32 params
+    real32 value
 end
 
 global record Material=
     shader shader
-    ref MaterialMap maps
-    ref r32 params
+    ref[]MaterialMap maps
+    ref[]r32 params
 end
 
 global record Transform=
@@ -167,12 +167,12 @@ end
 global record Model=
     Matrix transform
     int32 meshCount
-    ref Mesh meshes
+    ref[]Mesh meshes
     int32 materialCount
-    ref Material materials
+    ref[]Material materials
     ref int32 meshMaterial
     int32 boneCount
-    ref BoneInfo bones
+    ref[]BoneInfo bones
     ref Transform bindPose
 end
 
@@ -673,9 +673,9 @@ importdll libraylib=
     clang proc      "EndScissorMode"            ()
 
     !screen space functions
-    clang function  "GetMouseRay"               (Vec2, ref Camera)ref Ray
-    clang function  "GetCameraMatrix"           (ref Camera)ref Matrix
-    clang function  "GetCameraMatrix2D"         (ref Camera2D)ref Matrix
+    clang proc      "GetMouseRay"               (ref Ray, Vec2, ref Camera)
+    clang proc      "GetCameraMatrix"           (ref Matrix, ref Camera)
+    clang proc      "GetCameraMatrix2D"         (ref Matrix, ref Camera2D)
     clang function  "GetWorldToScreen"          (ref Vector3, ref Camera)Vec2
     clang function  "GetWorldToScreenEx"        (ref Vector3, ref Camera, int32, int32)Vec2
     clang function  "GetWorldToScreen2D"        (Vec2, ref Camera2D)Vec2
@@ -689,9 +689,9 @@ importdll libraylib=
 
     !color functions
     clang function  "ColorToInt"                (Col)int32
-    clang function  "ColorNormalize"            (Col)Vector4
+    clang proc      "ColorNormalize"            (ref Vector4, Col)
     clang function  "ColorFromNormalize"        (ref Vector4)Col
-    clang function  "ColorToHSV"                (Col)Vector3
+    clang proc      "ColorToHSV"                (ref Vector3, Col)
     clang function  "ColorFromHSV"              (ref Vector3)Col
     clang function  "GetColor"                  (int32)Col
     clang function  "Fade"                      (Col, real32)Col
@@ -830,36 +830,36 @@ importdll libraylib=
     clang function  "CheckCollisionRecs"        (ref Rectangle, ref Rectangle)byte
     clang function  "CheckCollisionCircles"     (Vec2, real32, Vec2, real32)byte
     clang function  "CheckCollisionCircleRec"   (Vec2, real32, ref Rectangle)byte
-    clang function  "GetCollisionRec"           (ref Rectangle, ref Rectangle)ref Rectangle
+    clang proc      "GetCollisionRec"           (ref Rectangle, ref Rectangle, ref Rectangle)
     clang function  "CheckCollisionPointRec"    (Vec2, ref Rectangle)byte
     clang function  "CheckCollisionPointCircle" (Vec2, Vec2, real32)byte
     clang function  "CheckCollisionPointTriangle"   (Vec2, Vec2, Vec2, Vec2)byte
     
     !Image/Texture2D data handling functions
-    clang function  "LoadImage"                 (ref char)ref Image
-    clang function  "LoadImageEx"               (ref Col, int32, int32)ref Image    ! unsure if "ref Col" will work here. definitely an array. "ref[]Col"?
-    clang function  "LoadImagePro"              (ref void, int32, int32, int32)ref Image
-    clang function  "LoadImageRaw"              (ref char, int32, int32, int32, int32)ref Image
+    clang proc      "LoadImage"                 (ref Image, ref char)
+    clang proc      "LoadImageEx"               (ref Image, ref Col, int32, int32)  ! unsure if "ref Col" will work here. definitely an array. "ref[]Col"?
+    clang proc      "LoadImagePro"              (ref Image, ref void, int32, int32, int32)
+    clang proc      "LoadImageRaw"              (ref Image, ref char, int32, int32, int32, int32)
     clang proc      "ExportImage"               (ref Image, ref char)
     clang proc      "ExportImageAsCode"         (ref Image, ref char)
-    clang function  "LoadTexture"               (ref char)ref Texture2D
-    clang function  "LoadTextureFromImage"      (ref Image)ref Texture2D
-    clang function  "LoadTextureCubemap"        (ref Image, int32)ref TextureCubemap
-    clang function  "LoadRenderTexture"         (int32, int32)ref RenderTexture2D
+    clang proc      "LoadTexture"               (ref Texture2D, ref char)
+    clang proc      "LoadTextureFromImage"      (ref Texture2D, ref Image)
+    clang proc      "LoadTextureCubemap"        (ref TextureCubemap, ref Image, int32)
+    clang proc      "LoadRenderTexture"         (ref RenderTexture2D, int32, int32)
     clang proc      "UnloadImage"               (ref Image)
     clang proc      "UnloadTexture"             (ref Texture2D)
     clang proc      "UnloadRenderTexture"       (ref RenderTexture2D)
-    clang function  "GetImageData"              (ref Image)ref Color
-    clang function  "GetImageDataNormalized"    (ref Image)ref Vector4
-    clang function  "GetImageAlphaBorder"       (ref Image, real32)ref Rectangle
+    clang function  "GetImageData"              (ref Image)ref Col
+    clang proc      "GetImageDataNormalized"    (ref Vector4, ref Image)
+    clang proc      "GetImageAlphaBorder"       (ref Rectangle, ref Image, real32)
     clang function  "GetPixelDataSize"          (int32, int32, int32)int32
-    clang function  "GetTextureData"            (ref Texture2D)ref Image
-    clang function  "GetScreenData"             ()ref Image
+    clang proc      "GetTextureData"            (ref Image, ref Texture2D)
+    clang proc      "GetScreenData"             (ref Image)
     clang proc      "UpdateTexture"             (ref Texture2D, ref void)
 
     !Image manipulation functions
-    clang function  "ImageCopy"                 (ref Image)ref Image
-    clang function  "ImageFromImage"            (ref Image, ref Rectangle)ref Image
+    clang proc      "ImageCopy"                 (ref Image, ref Image)
+    clang proc      "ImageFromImage"            (ref Image, ref Image, ref Rectangle)
     clang proc      "ImagetoPOT"                (ref Image, Col)                    ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer. "ref[]Image"? - RLAPI void ImageToPOT(Image *image, Color fillColor);
     clang proc      "ImageFormat"               (ref Image, int32)
     clang proc      "ImageAlphaMask"            (ref Image, ref Image)
@@ -873,8 +873,8 @@ importdll libraylib=
     clang proc      "ImageMipmaps"              (ref Image)
     clang proc      "ImageDither"               (ref Image, int32, int32, int32, int32)
     clang function  "ImageExtractPalette"       (ref Image, int32, ref int32)ref Col
-    clang function  "ImageText"                 (ref char, int32, Col)ref Image
-    clang function  "ImageTextEx"               (ref Font, ref char, real32, real32, Col)ref Image
+    clang proc      "ImageText"                 (ref Image, ref char, int32, Col)
+    clang proc      "ImageTextEx"               (ref Image, ref Font, ref char, real32, real32, Col)
     clang proc      "ImageDraw"                 (ref Image, ref Image, ref Rectangle, ref Rectangle, Col)
     clang proc      "ImageDrawRectangle"        (ref Image, ref Rectangle, Col)
     clang proc      "ImageDrawRectangleLines"   (ref Image, ref Rectangle, int32, Col)
@@ -892,14 +892,14 @@ importdll libraylib=
     clang proc      "ImageColorReplace"         (ref Image, Col, Col)
 
     !Image generation functions
-    clang function  "GenImageColor"             (int32, int32, Col)ref Image
-    clang function  "GenImageGradientV"         (int32, int32, Col, Col)ref Image
-    clang function  "GenImageGradientH"         (int32, int32, Col, Col)ref Image
-    clang function  "GenImageGradientRadial"    (int32, int32, real32, Col, Col)ref Image
-    clang function  "GenImageChecked"           (int32, int32, int32, int32, Col, Col)ref Image
-    clang function  "GenImageWhiteNoise"        (int32, int32, real32)ref Image
-    clang function  "GenImagePerlinNoise"       (int32, int32, int32, int32, real32)ref Image
-    clang function  "GenImageCellular"          (int32, int32, int32)ref Image
+    clang proc      "GenImageColor"             (ref Image, int32, int32, Col)
+    clang proc      "GenImageGradientV"         (ref Image, int32, int32, Col, Col)
+    clang proc      "GenImageGradientH"         (ref Image, int32, int32, Col, Col)
+    clang proc      "GenImageGradientRadial"    (ref Image, int32, int32, real32, Col, Col)
+    clang proc      "GenImageChecked"           (ref Image, int32, int32, int32, int32, Col, Col)
+    clang proc      "GenImageWhiteNoise"        (ref Image, int32, int32, real32)
+    clang proc      "GenImagePerlinNoise"       (ref Image, int32, int32, int32, int32, real32)
+    clang proc      "GenImageCellular"          (ref Image, int32, int32, int32)
 
     !Texture2D config functions
     clang proc      "GenTextureMipmaps"         (ref Texture2D)
@@ -916,12 +916,12 @@ importdll libraylib=
     clang proc      "DrawTextureNPatch"         (ref Texture2D, ref NPatchInfo, ref Rectangle, Vec2, real32, Col)
 
     !font (un)loading functions
-    clang function  "GetFontDefault"            ()ref Font
-    clang function  "LoadFont"                  (ref char)ref Font
-    clang function  "LoadFontEx"                (ref char, int32, ref int32, int32)ref Font
-    clang function  "LoadFontFromImage"         (ref Image, Col, int32)ref Font
-    clang function  "LoadFontData"              (ref char, int32, ref int32, int32, int32)ref CharInfo
-    clang function  "GenImageFontAtlas"         (ref CharInfo, ref Rectangle, int32, int32, int32, int32)ref Image !unsure if "ref Rectangle" will work here - RLAPI Image GenImageFontAtlas(const CharInfo *chars, Rectangle **recs, int charsCount, int fontSize, int padding, int packMethod);
+    clang proc      "GetFontDefault"            (ref Font)
+    clang proc      "LoadFont"                  (ref Font, ref char)
+    clang proc      "LoadFontEx"                (ref Font, ref char, int32, ref int32, int32)
+    clang proc      "LoadFontFromImage"         (ref Font, ref Image, Col, int32)
+    clang proc      "LoadFontData"              (ref CharInfo, ref char, int32, ref int32, int32, int32)                !unsure if "ref CharInfo" will work here - CharInfo *LoadFontData(const char *fileName, int fontSize, int *fontChars, int charsCount, int type);
+    clang proc      "GenImageFontAtlas"         (ref Image, ref CharInfo, ref Rectangle, int32, int32, int32, int32)    !unsure if "ref Rectangle" will work here - RLAPI Image GenImageFontAtlas(const CharInfo *chars, Rectangle **recs, int charsCount, int fontSize, int padding, int packMethod);
     clang proc      "UnloadFont"                (ref Font)
 
     !text drawing functions
@@ -975,8 +975,8 @@ importdll libraylib=
     clang proc      "DrawGizmo"                 (ref Vector3)
 
     !model (un)loading functions
-    clang function  "LoadModel"                 (ref char)ref Model
-    clang function  "LoadModelFromMesh"         (ref Mesh)ref Model
+    clang proc      "LoadModel"                 (ref Model, ref char)
+    clang proc      "LoadModelFromMesh"         (ref Model, ref Mesh)
     clang proc      "UnloadModel"               (ref Model)
 
     !mesh (un)loading functions
@@ -985,32 +985,32 @@ importdll libraylib=
     clang proc      "UnloadMesh"                (ref Mesh)
 
     !material (un)loading functions
-    clang function  "LoadMaterials"             (ref char, ref int32)ref Material
-    clang function  "LoadMaterialDefault"       ()ref Material
+    clang proc      "LoadMaterials"             (ref Material, ref char, ref int32)
+    clang proc      "LoadMaterialDefault"       (ref Material)
     clang proc      "UnloadMaterial"            (ref Material)
     clang proc      "SetMaterialTexture"        (ref Material, int32, ref Texture2D)
     clang proc      "SetModelMeshMaterial"      (ref Model, int32, int32)
 
     !model animations (un)loading functions
-    clang function  "LoadModelAnimations"       (ref char, ref int)ref ModelAnimation
+    clang proc      "LoadModelAnimations"       (ref ModelAnimation, ref char, ref int)
     clang proc      "UpdateModelAnimation"      (ref Model, ref ModelAnimation, int32)
     clang proc      "UnloadModelAnimation"      (ref ModelAnimation)
     clang function  "IsModelAnimationValid"     (ref Model, ref ModelAnimation)byte
 
     !mesh generation functions
-    clang function  "GenMeshPoly"               (int32, real32)ref Mesh
-    clang function  "GenMeshPlane"              (real32, real32, int32, int32)ref Mesh
-    clang function  "GenMeshCube"               (real32, real32, real32)ref Mesh
-    clang function  "GenMeshSphere"             (real32, int32, int32)ref Mesh
-    clang function  "GenMeshHemiSphere"         (real32, real32, int32)ref Mesh
-    clang function  "GenMeshCylinder"           (real32, real32, int32)ref Mesh
-    clang function  "GenMeshTorus"              (real32, real32, int32, int32)ref Mesh
-    clang function  "GenMeshKnot"               (real32, real32, int32, int32)ref Mesh
-    clang function  "GenMeshHeightmap"          (ref Image, ref Vector3)ref Mesh
-    clang function  "GenMeshCubicmap"           (ref Image, ref Vector3)ref Mesh
+    clang proc      "GenMeshPoly"               (ref Mesh, int32, real32)
+    clang proc      "GenMeshPlane"              (ref Mesh, real32, real32, int32, int32)
+    clang proc      "GenMeshCube"               (ref Mesh, real32, real32, real32)
+    clang proc      "GenMeshSphere"             (ref Mesh, real32, int32, int32)
+    clang proc      "GenMeshHemiSphere"         (ref Mesh, real32, real32, int32)
+    clang proc      "GenMeshCylinder"           (ref Mesh, real32, real32, int32)
+    clang proc      "GenMeshTorus"              (ref Mesh, real32, real32, int32, int32)
+    clang proc      "GenMeshKnot"               (ref Mesh, real32, real32, int32, int32)
+    clang proc      "GenMeshHeightmap"          (ref Mesh, ref Image, ref Vector3)
+    clang proc      "GenMeshCubicmap"           (ref Mesh, ref Image, ref Vector3)
 
     !mesh manipulation functions
-    clang function  "MeshBoundingBox"           (ref Mesh)ref BoundingBox
+    clang proc      "MeshBoundingBox"           (ref BoundingBox, ref Mesh)
     clang proc      "MeshTangents"              (ref Mesh)
     clang proc      "MeshBinormals"             (ref Mesh)
 
@@ -1030,18 +1030,18 @@ importdll libraylib=
     clang function  "CheckCollisionRaySphere"   (ref Ray, ref Vector3, real32)byte
     clang function  "CheckCollisionRaySphereEx" (ref Ray, ref Vector3, real32, ref Vector3)byte
     clang function  "CheckCollisionRayBox"      (ref Ray, ref BoundingBox)byte
-    clang function  "GetCollisionRayModel"      (ref Ray, ref Model)ref RayHitInfo
-    clang function  "GetCollisionRayTriangle"   (ref Ray, ref Vector3, ref Vector3, ref Vector3)ref RayHitInfo
-    clang function  "GetCollisionRayGround"     (ref Ray, real32)ref RayHitInfo
+    clang proc      "GetCollisionRayModel"      (ref RayHitInfo, ref Ray, ref Model)
+    clang proc      "GetCollisionRayTriangle"   (ref RayHitInfo, ref Ray, ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "GetCollisionRayGround"     (ref RayHitInfo, ref Ray, real32)
 
     !shader (un)loading functions
     clang function  "LoadText"                  (ref char)ref char
-    clang function  "LoadShader"                (ref char, ref char)ref Shader
-    clang function  "LoadShaderCode"            (ref char, ref char)ref Shader
+    clang proc      "LoadShader"                (ref Shader, ref char, ref char)
+    clang proc      "LoadShaderCode"            (ref Shader, ref char, ref char)
     clang proc      "UnloadShader"              (ref Shader)
 
-    clang function  "GetShaderDefault"          ()ref Shader
-    clang function  "GetTextureDefault"         ()ref Texture2D
+    clang proc      "GetShaderDefault"          (ref Shader)
+    clang proc      "GetTextureDefault"         (ref Texture2D)
 
     !shader configuration functions
     clang function  "GetShaderLocation"         (ref Shader, ref char)int32
@@ -1051,14 +1051,14 @@ importdll libraylib=
     clang proc      "SetShaderValueTexture"     (ref Shader, int32, ref Texture2D)
     clang proc      "SetMatrixProjection"       (ref Matrix)
     clang proc      "SetMatrixModelview"        (ref Matrix)
-    clang function  "GetMatrixModelview"        ()ref Matrix
-    clang function  "GetMatrixProjection"       ()ref Matrix
+    clang proc      "GetMatrixModelview"        (ref Matrix)
+    clang proc      "GetMatrixProjection"       (ref Matrix)
 
     !texture maps generation (PBR)
-    clang function  "GenTextureCubemap"         (ref Shader, ref Texture2D, int32)ref Texture2D
-    clang function  "GenTextureIrradiance"      (ref Shader, ref Texture2D, int32)ref Texture2D
-    clang function  "GenTexturePrefilter"       (ref Shader, ref Texture2D, int32)ref Texture2D
-    clang function  "GenTextureBRDF"            (ref Shader, int32)ref Texture2D
+    clang proc      "GenTextureCubemap"         (ref Texture2D, ref Shader, ref Texture2D, int32)
+    clang proc      "GenTextureIrradiance"      (ref Texture2D, ref Shader, ref Texture2D, int32)
+    clang proc      "GenTexturePrefilter"       (ref Texture2D, ref Shader, ref Texture2D, int32)
+    clang proc      "GenTextureBRDF"            (ref Texture2D, ref Shader, int32)
 
     !shading begin/end functions
     clang proc      "BeginShaderMode"           (ref Shader)
@@ -1083,9 +1083,9 @@ importdll libraylib=
     clang proc      "SetMasterVolume"           (real32)
 
     !wave/sound (un)loading functions
-    clang function  "LoadWave"                  (ref char)ref Wave
-    clang function  "LoadSound"                 (ref char)ref Sound
-    clang function  "LoadSoundFromWave"         (ref Wave)ref Sound
+    clang proc      "LoadWave"                  (ref Wave, ref char)
+    clang proc      "LoadSound"                 (ref Sound, ref char)
+    clang proc      "LoadSoundFromWave"         (ref Sound, ref Wave)
     clang proc      "UpdateSound"               (ref Sound, ref void, int32)
     clang proc      "UnloadWave"                (ref Wave)
     clang proc      "UnloadSound"               (ref Sound)
@@ -1109,7 +1109,7 @@ importdll libraylib=
     clang function  "GetWaveData"               (ref Wave)ref real32
 
     !music management functions
-    clang function  "LoadMusicStream"           (ref char)ref Music
+    clang proc      "LoadMusicStream"           (ref Music, ref char)
     clang proc      "UnloadMusicStream"         (ref Music)
     clang proc      "PlayMusicStream"           (ref Music)
     clang proc      "UpdateMusicStream"         (ref Music)
@@ -1124,7 +1124,7 @@ importdll libraylib=
     clang function  "GetMusicTimePlayed"        (ref Music)real32
 
     !AudioStream management functions
-    clang function  "InitAudioStream"           (u32, u32, u32)ref AudioStream
+    clang proc      "InitAudioStream"           (ref AudioStream, u32, u32, u32)
     clang proc      "UpdateAudioStream"         (ref AudioStream, ref void, int32)
     clang proc      "CloseAudioStream"          (ref AudioStream)
     clang function  "IsAudioStreamProcessed"    (ref AudioStream)byte
