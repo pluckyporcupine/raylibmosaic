@@ -33,6 +33,7 @@ Due to reserved words and differences in calling conventions, there are a few qu
   Image img
   LoadImage(&img,"resources/cubicmap.png")
   ```
+  **Important note:** This does not apply to functions that return Color or Vector2 structs because they are <=8 bytes.
 
 ## raymath and rlgl
 
