@@ -12,7 +12,7 @@ These bindings are still a work in progress. They are not battle-tested at all. 
 
 **Addendum:** I've already found a significant number of type mismatches. For the time being, assume that only what has been used in the published translations of examples works properly. Quite a lot more will likely work, but there is also a chance that it won't. If you find any errors, please either post an issue or submit a pull request with a fix.
 
-**Update 2/29/2020:** While these are not yet battle-tested, the functions that *are* confirmed to work have been tested quite a bit at this point. There is a high probability that a large subset of the raylib library will work, but I can't say for sure just yet. As noted above, post an issue or submit a pull request as is necessary.
+**Update 2/29/2020:** While these are not yet battle-tested, the functions that *are* confirmed to work have been tested quite a bit at this point. There is a high probability that a large subset of the raylib library will work, but I can't say for sure just yet. As noted above, post an issue or submit a pull request if necessary.
 
 ## Quirks
 
