@@ -2,9 +2,7 @@
 
 These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). They are made for and only confirmed to be working with raylib-2.6.0-Win64-mingw.
 
-You can download the compiler here: http://www.bcas.freeuk.com/mm.exe
-
-The latest source release can be found here: https://github.com/sal55/langs/tree/master/sources
+You can find more information about Mosaic [here](https://github.com/sal55/langs/blob/master/Mosaic/readme.md).
 
 ## Work in progress
 
