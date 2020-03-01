@@ -33,8 +33,8 @@ Due to reserved words and differences in calling conventions, there are a few qu
   ```
   **Important note:** This does not apply to functions that return Color, float3, float16, or Vector2 structs because they are <=8 bytes.
 
-## raymath and rlgl
+## Other raylib modules
 
-Bindings have been written for raymath, but have not yet been tested. I have not yet written bindings for rlgl.
+There are (poorly tested) raymath and rlgl bindings. I have not yet written bindings for any of raylib's other modules.
 
 All bindings are in raylib.m.

@@ -609,7 +609,45 @@ global Color BLANK=(0,0,0,0)
 global Color MAGENTA=(255,0,255,255)
 global Color RAYWHITE=(245,245,245,255)
 
-!compatibility
+!rlgl defines
+global const int MAX_BATCH_ELEMENTS=8192
+
+global const int MAX_BATCH_BUFFERING=1
+global const int MAX_MATRIX_STACK_SIZE=32
+global const int MAX_DRAWCALL_REGISTERED=256
+
+global const real32 DEFAULT_NEAR_CULL_DISTANCE=0.01
+global const real32 DEFAULT_FAR_CULL_DISTANCE=1000.0
+
+global const int MAX_SHADER_LOCATIONS=32
+global const int MAX_MATERIAL_MAPS=12
+
+!rlgl texture parameter macros
+global const RL_TEXTURE_WRAP_S=0x2802
+global const RL_TEXTURE_WRAP_T=0x2803
+global const RL_TEXTURE_MAG_FILTER=0x2800
+global const RL_TEXT_MIN_FILTER=0x2801
+global const RL_TEXTURE_ANISOTROPIC_FILTER=0x3000
+
+global const RL_FILTER_NEAREST=0x2600
+global const RL_FILTER_LINEAR=0x2601
+global const RL_FILTER_MIP_NEAREST=0x2700
+global const RL_FILTER_NEAREST_MIP_LINEAR=0x2702
+global const RL_FILTER_LINEAR_MIP_NEAREST=0x2701
+global const RL_FILTER_MIP_LINEAR=0x2703
+
+global const RL_WRAP_REPEAT=0x2901
+global const RL_WRAP_CLAMP=0x812F
+global const RL_WRAP_MIRROR_REAPEAT=0x8370
+global const RL_WRAP_MIRROR_CLAMP=0x8742
+
+global const RL_MODELVIEW=0x1700
+global const RL_PROJECTION=0x1701
+global const RL_TEXTURE=0x1702
+
+global const RL_LINES=0x0001
+global const RL_TRIANGLES=0x0004
+global const RL_QUADS=0x0007
 
 importdll libraylib=
     !core module
@@ -785,7 +823,7 @@ importdll libraylib=
     clang proc      "DrawLineV"                 (Vector2, Vector2, Color)
     clang proc      "DrawLineEx"                (Vector2, Vector2, real32, Color)
     clang proc      "DrawLineBezier"            (Vector2, Vector2, real32, Color)
-    clang proc      "DrawLineStrip"             (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[0:]Vector2"? - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
+    clang proc      "DrawLineStrip"             (ref Vector2, int32, Color)              ! ref[0:]Vector2? - void DrawLineStrip(Vector2 *points, int numPoints, Color color);
     clang proc      "DrawCircle"                (int32, int32, real32, Color)
     clang proc      "DrawCircleSector"          (Vector2, real32, int32, int32, int32, Color)
     clang proc      "DrawCircleSectorLines"     (Vector2, real32, int32, int32, int32, Color)
@@ -809,8 +847,8 @@ importdll libraylib=
     clang proc      "DrawRectangleRoundedLines" (ref Rectangle, real32, int32, int32, Color)
     clang proc      "DrawTriangle"              (Vector2, Vector2, Vector2, Color)
     clang proc      "DrawTriangleLines"         (Vector2, Vector2, Vector2, Color)
-    clang proc      "DrawTriangleFan"           (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[0:]Vector2"?
-    clang proc      "DrawTriangleStrip"         (ref Vector2, int32, Color)              ! unsure if "ref Vector2" will work here. definitely an array. "ref[0:]Vector2"?
+    clang proc      "DrawTriangleFan"           (ref Vector2, int32, Color)              ! ref[0:]Vector2?
+    clang proc      "DrawTriangleStrip"         (ref Vector2, int32, Color)              ! ref[0:]Vector2?
     clang proc      "DrawPoly"                  (Vector2, int32, real32, real32, Color)
     clang proc      "DrawPolyLines"             (Vector2, int32, real32, real32, Color)
 
@@ -827,7 +865,7 @@ importdll libraylib=
     
     !Image/Texture2D data handling functions
     clang proc      "LoadImage"                 (ref Image, ref char)
-    clang proc      "LoadImageEx"               (ref Image, ref Color, int32, int32)  ! unsure if "ref Color" will work here. definitely an array. "ref[0:]Color"?
+    clang proc      "LoadImageEx"               (ref Image, ref Color, int32, int32)    ! ref[0:]Color?
     clang proc      "LoadImagePro"              (ref Image, ref void, int32, int32, int32)
     clang proc      "LoadImageRaw"              (ref Image, ref char, int32, int32, int32, int32)
     clang proc      "ExportImage"               (ref Image, ref char)
@@ -850,7 +888,7 @@ importdll libraylib=
     !Image manipulation functions
     clang proc      "ImageCopy"                 (ref Image, ref Image)
     clang proc      "ImageFromImage"            (ref Image, ref Image, ref Rectangle)
-    clang proc      "ImagetoPOT"                (ref Image, Color)                    ! unsure whether there will be a semantic difference between the normal "ref Image" calls and the "ref Image" calls that are used for an actual pointer. "ref[0:]Image"? - RLAPI void ImageToPOT(Image *image, Color fillColor);
+    clang proc      "ImagetoPOT"                (ref Image, Color)                    ! ref[0:]Image? - RLAPI void ImageToPOT(Image *image, Color fillColor);
     clang proc      "ImageFormat"               (ref Image, int32)
     clang proc      "ImageAlphaMask"            (ref Image, ref Image)
     clang proc      "ImageAlphaClear"           (ref Image, Color, real32)
@@ -910,8 +948,8 @@ importdll libraylib=
     clang proc      "LoadFont"                  (ref Font, ref char)
     clang proc      "LoadFontEx"                (ref Font, ref char, int32, ref int32, int32)
     clang proc      "LoadFontFromImage"         (ref Font, ref Image, Color, int32)
-    clang proc      "LoadFontData"              (ref CharInfo, ref char, int32, ref int32, int32, int32)                !unsure if "ref CharInfo" will work here - CharInfo *LoadFontData(const char *fileName, int fontSize, int *fontChars, int charsCount, int type);
-    clang proc      "GenImageFontAtlas"         (ref Image, ref CharInfo, ref Rectangle, int32, int32, int32, int32)    !unsure if "ref Rectangle" will work here - RLAPI Image GenImageFontAtlas(const CharInfo *chars, Rectangle **recs, int charsCount, int fontSize, int padding, int packMethod);
+    clang proc      "LoadFontData"              (ref CharInfo, ref char, int32, ref int32, int32, int32)                ! ref[0:]CharInfo? - CharInfo *LoadFontData(const char *fileName, int fontSize, int *fontChars, int charsCount, int type);
+    clang proc      "GenImageFontAtlas"         (ref Image, ref CharInfo, ref Rectangle, int32, int32, int32, int32)    ! ref[0:]Rectangle? - RLAPI Image GenImageFontAtlas(const CharInfo *chars, Rectangle **recs, int charsCount, int fontSize, int padding, int packMethod);
     clang proc      "UnloadFont"                (ref Font)
 
     !text drawing functions
@@ -1215,4 +1253,88 @@ importdll libraylib=
     clang proc      "QuaternionFromEuler"           (ref Quaternion, real32, real32, real32)
     clang proc      "QuaternionToEuler"             (ref Vector3, ref Quaternion)
     clang proc      "QuaternionTransform"           (ref Quaternion, ref Quaternion, ref Matrix)
+
+    !rlgl functions
+
+    !Matrix operations
+    clang proc      "rlMatrixMode"                  (int32)
+    clang proc      "rlPushMatrix"                  ()
+    clang proc      "rlPopMatrix"                   ()
+    clang proc      "rlLoadIdentity"                ()
+    clang proc      "rlTranslatef"                  (real32, real32, real32)
+    clang proc      "rlRotatef"                     (real32, real32, real32, real32)
+    clang proc      "rlScalef"                      (real32, real32, real32)
+    clang proc      "rlMultMatrixf"                 (ref real32)                        ! ref[0:]real32?
+    clang proc      "rlFrustum"                     (real64, real64, real64, real64, real64, real64)
+    clang proc      "rlOrtho"                       (real64, real64, real64, real64, real64, real64)
+    clang proc      "rlViewport"                    (int32, int32, int32, int32)
+
+    !vertex level operations
+    clang proc      "rlBegin"                       (int32)
+    clang proc      "rlEnd"                         ()
+    clang proc      "rlVertex2i"                    (int32, int32)
+    clang proc      "rlVectex2f"                    (real32, real32)
+    clang proc      "rlVectex3f"                    (real32, real32, real32)
+    clang proc      "rlTexCoord2f"                  (real32, real32)
+    clang proc      "rlNormal3f"                    (real32, real32, real32)
+    clang proc      "rlColor4ub"                    (byte, byte, byte, byte)
+    clang proc      "rlColor3f"                     (real32, real32, real32)
+    clang proc      "rlColor4f"                     (real32, real32, real32, real32)
+
+    !OpenGL equivalent functions
+    clang proc      "rlEnableTexture"               (u32)
+    clang proc      "rlDisableTexture"              ()
+    clang proc      "rlTextureParameters"           (u32, int32, int32)
+    clang proc      "rlEnableRenderTexture"         (u32)
+    clang proc      "rlDisableRenderTexture"        ()
+    clang proc      "rlEnableDepthTest"             ()
+    clang proc      "rlDisableDepthTest"            ()
+    clang proc      "rlEnableBackfaceCulling"       ()
+    clang proc      "rlDisableBackfaceCulling"      ()
+    clang proc      "rlEnableScissorTest"           ()
+    clang proc      "rlDisableScissorTest"          ()
+    clang proc      "rlScissor"                     (int32, int32, int32, int32)
+    clang proc      "rlEnableWireMode"              ()
+    clang proc      "rlDisableWireMode"             ()
+    clang proc      "rlDeleteTextures"              (u32)
+    clang proc      "rlDeleteRenderTextures"        (ref RenderTexture2D)
+    clang proc      "rlDeleteShader"                (u32)
+    clang proc      "rlDeleteVertexArrays"          (u32)
+    clang proc      "rlDeleteBuffers"               (u32)
+    clang proc      "rlClearColor"                  (byte, byte, byte, byte)
+    clang proc      "rlClearScreenBuffers"          ()
+    clang proc      "rlUpdateBuffer"                (int32, ref[0:]void, int32)
+    clang function  "rlLoadAttribBuffer"            (u32, int32, ref[0:]void, int32, byte)u32
+
+    !rlgl functionality
+    clang proc      "rlglInit"                      (int32, int32)
+    clang proc      "rlglClose"                     ()
+    clang proc      "rlglDraw"                      ()
+
+    clang function  "rlglGetVersion"                ()int32
+    clang function  "rlCheckBufferLimit"            (int32)byte
+    clang proc      "rlSetDebugMarker"              (ref[0:]char)
+    clang proc      "rlLoadExtensions"              (ref void)
+    clang proc      "rlUnproject"                   (ref Vector3, ref Vector3, ref Matrix, ref Matrix)
+    
+    clang function  "rlLoadTexture"                 (ref void, int32, int32, int32, int32)u32
+    clang function  "rlLoadTextureDepth"            (int32, int32, int32, byte)u32
+    clang function  "rlLoadTextureCubemap"          (ref void, int32, int32)u32
+    clang proc      "rlUpdateTexture"               (u32, int32, int32, int32, ref[0:]void)
+    clang proc      "rlGetGlTextureFormats"         (int32, ref u32, ref u32, ref u32)      ! ref[0:]u32?
+    clang proc      "rlUnloadTexture"               (u32)
+
+    clang proc      "rlGenerateMipmaps"             (ref Texture2D)
+    clang function  "rlReadTexturePixels"           (ref Texture2D)ref[0:]void
+    clang function  "rlReadScreenPixels"            (int32, int32)ref[0:]u32
+
+    clang proc      "rlLoadRenderTexture"           (ref RenderTexture2D, int32, int32, int32, int32, byte)
+    clang proc      "rlRenderTextureAttach"         (ref RenderTexture, u32, int32)
+    clang function  "rlRenderTextureComplete"       (ref RenderTexture)byte
+
+    clang proc      "rlLoadMesh"                    (ref Mesh, byte)
+    clang proc      "rlUpdateMesh"                  (ref Mesh, int32, int32)
+    clang proc      "rlUpdateMeshAt"                (ref Mesh, int32, int32, int32)
+    clang proc      "rlDrawMesh"                    (ref Mesh, ref Material, ref Matrix)
+    clang proc      "rlUnloadMesh"                  (ref Mesh)
 end
