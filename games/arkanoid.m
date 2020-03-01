@@ -40,7 +40,6 @@ global [0:LINES_OF_BRICKS,0:BRICKS_PER_LINE]Brick br
 global Vector2 brickSize
 
 proc start=
-
     InitWindow(screenWidth, screenHeight, "sample game: arkanoid")
 
     InitGame()
@@ -54,7 +53,6 @@ proc start=
     UnloadGame()
 
     CloseWindow()
-
 end
 
 proc InitGame()=
