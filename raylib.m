@@ -1150,69 +1150,69 @@ importdll libraylib=
     clang function  "Vector2Lerp"               (Vector2, Vector2, real32)Vector2
 
     !Vector3 math
-    clang function  "Vector3Zero"               ()ref Vector3
-    clang function  "Vector3One"                ()ref Vector3
-    clang function  "Vector3Add"                (ref Vector3, ref Vector3)ref Vector3
-    clang function  "Vector3Subtract"           (ref Vector3, ref Vector3)ref Vector3
-    clang function  "Vector3Scale"              (ref Vector3, real32)ref Vector3
-    clang function  "Vector3Multiply"           (ref Vector3, ref Vector3)ref Vector3
+    clang proc      "Vector3Zero"               (ref Vector3)
+    clang proc      "Vector3One"                (ref Vector3)
+    clang proc      "Vector3Add"                (ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "Vector3Subtract"           (ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "Vector3Scale"              (ref Vector3, ref Vector3, real32)
+    clang proc      "Vector3Multiply"           (ref Vector3, ref Vector3, ref Vector3)
     clang function  "Vector3CrossProduct"       (ref Vector3, ref Vector3)real32
-    clang function  "Vector3Perpendicular"      (ref Vector3)ref Vector3
+    clang proc      "Vector3Perpendicular"      (ref Vector3, ref Vector3)
     clang function  "Vector3Length"             (ref Vector3)real32
     clang function  "Vector3DotProduct"         (ref Vector3, ref Vector3)real32
     clang function  "Vector3Distance"           (ref Vector3, ref Vector3)real32
-    clang function  "Vector3Negate"             (ref Vector3)ref Vector3
-    clang function  "Vector3Divide"             (ref Vector3, real32)ref Vector3
-    clang function  "Vector3DivideV"            (ref Vector3, ref Vector3)ref Vector3
-    clang function  "Vector3Normalize"          (ref Vector3)ref Vector3
+    clang proc      "Vector3Negate"             (ref Vector3, ref Vector3)
+    clang proc      "Vector3Divide"             (ref Vector3, ref Vector3, real32)
+    clang proc      "Vector3DivideV"            (ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "Vector3Normalize"          (ref Vector3, ref Vector3)
     clang proc      "Vector3OrthoNormalize"     (ref Vector3, ref Vector3)
-    clang function  "Vector3Transform"          (ref Vector3, ref Vector3)ref Vector3
-    clang function  "Vector3RotateByQuaternion" (ref Vector3, ref Quaternion)ref Vector3
-    clang function  "Vector3Lerp"               (ref Vector3, ref Vector3, real32)ref Vector3
-    clang function  "Vector3Reflect"            (ref Vector3, ref Vector3)ref Vector3
-    clang function  "Vector3Min"                (ref Vector3, ref Vector3)ref Vector3
-    clang function  "Vector3Max"                (ref Vector3, ref Vector3)ref Vector3
-    clang function  "Vector3Barycenter"         (ref Vector3, ref Vector3, ref Vector3, ref Vector3)ref Vector3
+    clang proc      "Vector3Transform"          (ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "Vector3RotateByQuaternion" (ref Vector3, ref Vector3, ref Quaternion)
+    clang proc      "Vector3Lerp"               (ref Vector3, ref Vector3, ref Vector3, real32)
+    clang proc      "Vector3Reflect"            (ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "Vector3Min"                (ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "Vector3Max"                (ref Vector3, ref Vector3, ref Vector3)
+    clang proc      "Vector3Barycenter"         (ref Vector3, ref Vector3, ref Vector3, ref Vector3, ref Vector3)
     clang function  "Vector3ToFloatV"           (ref Vector3)float3
 
     !Matrix math
     clang function  "MatrixDeterminant"             (ref Matrix)real32
     clang function  "MatrixTrace"                   (ref Matrix)real32
-    clang function  "MatrixTranspose"               (ref Matrix)ref Matrix
-    clang function  "MatrixInvert"                  (ref Matrix)ref Matrix
-    clang function  "MatrixNormalize"               (ref Matrix)ref Matrix
-    clang function  "MatrixIdentity"                ()ref Matrix
-    clang function  "MatrixAdd"                     (ref Matrix, ref Matrix)ref Matrix
-    clang function  "MatrixSubtract"                (ref Matrix, ref Matrix)ref Matrix
-    clang function  "MatrixTranslate"               (real32, real32, real32)ref Matrix
-    clang function  "MatrixRotate"                  (ref Matrix, real32)ref Matrix
-    clang function  "MatrixRotateXYZ"               (ref Vector3)ref Matrix
-    clang function  "MatrixRotateX"                 (real32)ref Matrix
-    clang function  "MatrixRotateY"                 (real32)ref Matrix
-    clang function  "MatrixRotateZ"                 (real32)ref Matrix
-    clang function  "MatrixScale"                   (real32, real32, real32)ref Matrix
-    clang function  "MatrixMultiply"                (ref Matrix, ref Matrix)ref Matrix
-    clang function  "MatrixFrustum"                 (real64, real64, real64, real64, real64, real64)ref Matrix
-    clang function  "MatrixPerspective"             (real64, real64, real64, real64)ref Matrix
-    clang function  "MatrixOrtho"                   (real64, real64, real64, real64, real64, real64)ref Matrix
-    clang function  "MatrixLookAt"                  (ref Vector3, ref Vector3, ref Vector3)ref Matrix
+    clang proc      "MatrixTranspose"               (ref Matrix, ref Matrix)
+    clang proc      "MatrixInvert"                  (ref Matrix, ref Matrix)
+    clang proc      "MatrixNormalize"               (ref Matrix, ref Matrix)
+    clang proc      "MatrixIdentity"                (ref Matrix)
+    clang proc      "MatrixAdd"                     (ref Matrix, ref Matrix, ref Matrix)
+    clang proc      "MatrixSubtract"                (ref Matrix, ref Matrix, ref Matrix)
+    clang proc      "MatrixTranslate"               (ref Matrix, real32, real32, real32)
+    clang proc      "MatrixRotate"                  (ref Matrix, ref Matrix, real32)
+    clang proc      "MatrixRotateXYZ"               (ref Matrix, ref Vector3)
+    clang proc      "MatrixRotateX"                 (ref Matrix, real32)
+    clang proc      "MatrixRotateY"                 (ref Matrix, real32)
+    clang proc      "MatrixRotateZ"                 (ref Matrix, real32)
+    clang proc      "MatrixScale"                   (ref Matrix, real32, real32, real32)
+    clang proc      "MatrixMultiply"                (ref Matrix, ref Matrix, ref Matrix)
+    clang proc      "MatrixFrustum"                 (ref Matrix, real64, real64, real64, real64, real64, real64)
+    clang proc      "MatrixPerspective"             (ref Matrix, real64, real64, real64, real64)
+    clang proc      "MatrixOrtho"                   (ref Matrix, real64, real64, real64, real64, real64, real64)
+    clang proc      "MatrixLookAt"                  (ref Matrix, ref Vector3, ref Vector3, ref Vector3)
     clang function  "MatrixToFloatV"                (ref Matrix)float16
 
     !Quaternion math
-    clang function  "QuaternionIdentity"            ()ref Quaternion
+    clang proc      "QuaternionIdentity"            (ref Quaternion)
     clang function  "QuaternionLength"              (ref Quaternion)real32
-    clang function  "QuaternionNormalize"           (ref Quaternion)ref Quaternion
-    clang function  "QuaternionInvert"              (ref Quaternion)ref Quaternion
-    clang function  "QuaternionMultiply"            (ref Quaternion, ref Quaternion)ref Quaternion
-    clang function  "QuaternionLerp"                (ref Quaternion, ref Quaternion, real32)ref Quaternion
-    clang function  "QuaternionNlerp"               (ref Quaternion, ref Quaternion, real32)ref Quaternion
-    clang function  "QuaternionSlerp"               (ref Quaternion, ref Quaternion, real32)ref Quaternion
-    clang function  "QuaternionFromVector3ToVector3"(ref Vector3, ref Vector3)ref Quaternion
-    clang function  "QuaternionFromMatrix"          (ref Matrix)ref Quaternion
-    clang function  "QuaternionToMatrix"            (ref Quaternion)ref Matrix
-    clang function  "QuaternionFromAxisAngle"       (ref Vector3, real32)ref Quaternion
+    clang proc      "QuaternionNormalize"           (ref Quaternion, ref Quaternion)
+    clang proc      "QuaternionInvert"              (ref Quaternion, ref Quaternion)
+    clang proc      "QuaternionMultiply"            (ref Quaternion, ref Quaternion, ref Quaternion)
+    clang proc      "QuaternionLerp"                (ref Quaternion, ref Quaternion, ref Quaternion, real32)
+    clang proc      "QuaternionNlerp"               (ref Quaternion, ref Quaternion, ref Quaternion, real32)
+    clang proc      "QuaternionSlerp"               (ref Quaternion, ref Quaternion, ref Quaternion, real32)
+    clang proc      "QuaternionFromVector3ToVector3"(ref Quaternion, ref Vector3, ref Vector3)
+    clang proc      "QuaternionFromMatrix"          (ref Quaternion, ref Matrix)
+    clang proc      "QuaternionToMatrix"            (ref Matrix, ref Quaternion)
+    clang proc      "QuaternionFromAxisAngle"       (ref Quaternion, ref Vector3, real32)
     clang proc      "QuaternionToAxisAngle"         (ref Quaternion, ref Vector3, ref real32)
-    clang function  "QuaternionFromEuler"           (real32, real32, real32)ref Quaternion
-    clang function  "QuaternionToEuler"             (ref Quaternion)ref Vector3
-    clang function  "QuaternionTransform"           (ref Quaternion, ref Matrix)ref Quaternion
+    clang proc      "QuaternionFromEuler"           (ref Quaternion, real32, real32, real32)
+    clang proc      "QuaternionToEuler"             (ref Vector3, ref Quaternion)
+    clang proc      "QuaternionTransform"           (ref Quaternion, ref Quaternion, ref Matrix)
 end
