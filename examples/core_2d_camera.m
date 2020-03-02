@@ -1,7 +1,6 @@
 import clib
 import mlib
 import raylib
-cclib "libraylib"
 
 const int MAX_BUILDINGS=100
 

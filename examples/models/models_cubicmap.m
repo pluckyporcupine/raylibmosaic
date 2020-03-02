@@ -1,5 +1,4 @@
 import raylib
-cclib "libraylib"
 
 proc start=
     const int screenWidth=800

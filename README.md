@@ -1,6 +1,6 @@
 # raylib-mosaic
 
-These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). They are made for and only confirmed to be working with raylib-2.6.0-Win64-mingw.
+These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). These bindings are made for only confirmed to be working with raylib-2.6.0.
 
 You can find more information about Mosaic [here](https://github.com/sal55/langs/blob/master/Mosaic/readme.md).
 
@@ -35,6 +35,10 @@ Due to reserved words and differences in calling conventions, there are a few qu
 
 ## Other raylib modules
 
-There are (poorly tested) raymath and rlgl bindings. I have not yet written bindings for any of raylib's other modules.
+There are (poorly tested) raymath and rlgl bindings.
+
+I have also written (also poorly tested) bindings for raygui. If you would like to use raygui, you currently need to build the raylib DLL from source and modify the Makefile to include raygui. For convenience, I have included a pre-built raylib DLL that includes raygui. Alternatively, you could build your own raygui DLL and change `importdll raylib` on line 1488 of raylib.m to `importdll raygui`. The bindings for raylib and raygui are intentionally being kept separate for the time being for this purpose.
+
+I have not yet written bindings for any of raylib's other modules.
 
 All bindings are in raylib.m.
