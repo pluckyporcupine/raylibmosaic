@@ -8,7 +8,7 @@ You can find more information about Mosaic [here](https://github.com/sal55/langs
 
 These bindings are still a work in progress. They are not battle-tested at all. They compile and the core_2d_camera example works, but there are bound to be plenty of things that don't work as expected. These bindings were hand-written and not all of the type signatures have been verified. Furthermore, `TraceLogCallback` is likely not fully implemented.
 
-**Addendum:** I've already found a significant number of type mismatches. For the time being, assume that only what has been used in the published translations of examples works properly. Quite a lot more will likely work, but there is also a chance that it won't. If you find any errors, please either post an issue or submit a pull request with a fix.
+~~**Addendum:** I've already found a significant number of type mismatches. For the time being, assume that only what has been used in the published translations of examples works properly. Quite a lot more will likely work, but there is also a chance that it won't. If you find any errors, please either post an issue or submit a pull request with a fix.~~
 
 **Update 2/29/2020:** While these are not yet battle-tested, the functions that *are* confirmed to work have been tested quite a bit at this point. There is a high probability that a large subset of the raylib library will work, but I can't say for sure just yet. As noted above, post an issue or submit a pull request if necessary.
 
@@ -37,7 +37,7 @@ Due to reserved words and differences in calling conventions, there are a few qu
 
 There are (poorly tested) raymath and rlgl bindings.
 
-I have also written (also poorly tested) bindings for raygui. If you would like to use raygui, you currently need to build the raylib DLL from source and modify the Makefile to include raygui. For convenience, I have included a pre-built raylib DLL that includes raygui. Alternatively, you could build your own raygui DLL and change `importdll raylib` on line 1488 of raylib.m to `importdll raygui`. The bindings for raylib and raygui are intentionally being kept separate for the time being for this purpose.
+I have also written (also poorly tested) bindings for raygui. If you would like to use raygui, you currently need to build raylib from source and modify the Makefile to include raygui. For convenience, I have included a pre-built raylib DLL that includes raygui. Alternatively, you could build your own raygui DLL and change `importdll raylib` on line 1488 of raylib.m to `importdll raygui`. The bindings for raylib and raygui are intentionally being kept separate for the time being for this purpose.
 
 I have not yet written bindings for any of raylib's other modules.
 
