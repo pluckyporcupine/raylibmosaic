@@ -37,7 +37,9 @@ Due to reserved words and differences in calling conventions, there are a few qu
 
 There are (poorly tested) raymath and rlgl bindings.
 
-I have also written (also poorly tested) bindings for raygui. If you would like to use raygui, you currently need to build raylib from source and modify the Makefile to include raygui. For convenience, I have included a pre-built raylib DLL that includes raygui. Alternatively, you could build your own raygui DLL and change `importdll raylib` on line 1488 of raylib.m to `importdll raygui`. The bindings for raylib and raygui are intentionally being kept separate for the time being for this purpose.
+I have also written (also poorly tested) bindings for raygui. If you would like to use raygui, you currently need to build raylib from source and modify the Makefile to include raygui. For convenience, I have included a pre-built raylib DLL that includes raygui. 
+
+Alternatively, you could build your own raygui DLL and change `importdll raylib` on line 1488 of raylib.m to `importdll raygui`. The bindings for raylib and raygui are intentionally being kept separate for the time being for this purpose.
 
 I have not yet written bindings for any of raylib's other modules.
 
