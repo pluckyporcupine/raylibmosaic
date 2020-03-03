@@ -12,12 +12,12 @@ proc start=
 
     Rectangle player:=(400, 280, 40, 40)
 
-    static [MAX_BUILDINGS]Rectangle buildings
-    static [MAX_BUILDINGS]Color buildColors
+    static [0:MAX_BUILDINGS]Rectangle buildings
+    static [0:MAX_BUILDINGS]Color buildColors
 
     int spacing:=0
 
-    for i:=0 to MAX_BUILDINGS do
+    for i:=0 to MAX_BUILDINGS-1 do
         buildings[i].width:=GetRandomValue(50,200)
         buildings[i].height:=GetRandomValue(100,800)
         buildings[i].y:=screenHeight-130-buildings[i].height
@@ -59,7 +59,7 @@ proc start=
 
                 DrawRectangle(-6000,320,13000,8000,DARKGRAY)
 
-                for i:=0 to MAX_BUILDINGS do
+                for i:=0 to MAX_BUILDINGS-1 do
                     DrawRectangleRec(&buildings[i],buildColors[i])
                 od
 
