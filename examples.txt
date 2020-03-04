@@ -1,0 +1,2 @@
+examples\core_2d_camera
+games\arkanoid
