@@ -1,2 +1,4 @@
 examples\core_2d_camera
+examples\raygui\portable_window
+examples\raygui\shapes_draw_ring
 games\arkanoid
