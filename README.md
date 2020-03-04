@@ -44,3 +44,12 @@ Alternatively, you could build your own raygui DLL and change `importdll raylib`
 I have not yet written bindings for any of raylib's other modules.
 
 All bindings are in raylib.m.
+
+## Quick compile
+
+I've added a `compileall.bat` script that will compile all of the examples that have been translated to Mosaic thus far and copy them into a folder called `bin`, along with a copy of the included raylib DLL.
+
+There are currently two caveats:
+
+  1. Until I can figure out a good solution for the examples that require resources, the script only compiles the examples that do not require external resources.
+  2. The script assumes that `mm.exe` is somewhere in your path. As it is a single-file compiler, it is not difficult to add to your path.
