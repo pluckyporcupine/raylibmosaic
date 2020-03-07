@@ -121,27 +121,27 @@ proc UpdateGame()=
             for i:=0 to LINES_OF_BRICKS-1 do
                 for j:=0 to BRICKS_PER_LINE-1 do
                     if br[i,j].active then
-                        if ba.position.y-ba.radius <= br[i,j].position.y+brickSize.y/2 and \
-                           ba.position.y-ba.radius > br[i,j].position.y+brickSize.y/2+ba.speed.y and \
-                           abs(ba.position.x-br[i,j].position.x) < brickSize.x/2+ba.radius*2/3 and \
+                        if ba.position.y-ba.radius <= br[i,j].position.y+brickSize.y/2 and
+                           ba.position.y-ba.radius > br[i,j].position.y+brickSize.y/2+ba.speed.y and
+                           abs(ba.position.x-br[i,j].position.x) < brickSize.x/2+ba.radius*2/3 and
                            ba.speed.y<0 then
                             br[i,j].active:=0
                             ba.speed.y*:=-1
-                        elsif ba.position.y+ba.radius >= br[i,j].position.y-brickSize.y/2 and \
-                              ba.position.y+ba.radius < br[i,j].position.y-brickSize.y/2+ba.speed.y and \
-                              abs(ba.position.x-br[i,j].position.x) < brickSize.x/2+ba.radius*2/3 and \
+                        elsif ba.position.y+ba.radius >= br[i,j].position.y-brickSize.y/2 and
+                              ba.position.y+ba.radius < br[i,j].position.y-brickSize.y/2+ba.speed.y and
+                              abs(ba.position.x-br[i,j].position.x) < brickSize.x/2+ba.radius*2/3 and
                               ba.speed.y > 0 then
                                 br[i,j].active:=0
                                 ba.speed.y*:=-1
-                        elsif ba.position.x+ba.radius >= br[i,j].position.x-brickSize.x/2 and \
-                              ba.position.x+ba.radius < br[i,j].position.x-brickSize.x/2+ba.speed.x and \
-                              abs(ba.position.y-br[i,j].position.y) < brickSize.y/2+ba.radius*2/3 and \
+                        elsif ba.position.x+ba.radius >= br[i,j].position.x-brickSize.x/2 and
+                              ba.position.x+ba.radius < br[i,j].position.x-brickSize.x/2+ba.speed.x and
+                              abs(ba.position.y-br[i,j].position.y) < brickSize.y/2+ba.radius*2/3 and
                               ba.speed.x > 0 then
                                 br[i,j].active:=0
                                 ba.speed.x*:=-1
-                        elsif ba.position.x-ba.radius <= br[i,j].position.x+brickSize.x/2 and \
-                              ba.position.x-ba.radius > br[i,j].position.x+brickSize.x/2+ba.speed.x and \
-                              abs(ba.position.y-br[i,j].position.y) < brickSize.y/2+ba.radius*2/3 and \
+                        elsif ba.position.x-ba.radius <= br[i,j].position.x+brickSize.x/2 and
+                              ba.position.x-ba.radius > br[i,j].position.x+brickSize.x/2+ba.speed.x and
+                              abs(ba.position.y-br[i,j].position.y) < brickSize.y/2+ba.radius*2/3 and
                               ba.speed.x < 0 then
                                 br[i,j].active:=0
                                 ba.speed.x*:=-1
@@ -186,25 +186,25 @@ proc DrawGame()=
             for i:=0 to LINES_OF_BRICKS-1 do
                 for j:=0 to BRICKS_PER_LINE-1 do
                     if br[i,j].active then
-                        if not ((i+j) rem 2) then DrawRectangle(br[i,j].position.x-brickSize.x/2, \
-                                                                br[i,j].position.y-brickSize.y/2, \
-                                                                brickSize.x, \
-                                                                brickSize.y, \
+                        if not ((i+j) rem 2) then DrawRectangle(br[i,j].position.x-brickSize.x/2,
+                                                                br[i,j].position.y-brickSize.y/2,
+                                                                brickSize.x,
+                                                                brickSize.y,
                                                                 GRAY)
-                        else DrawRectangle(br[i,j].position.x-brickSize.x/2, \
-                                           br[i,j].position.y-brickSize.y/2, \
-                                           brickSize.x, \
-                                           brickSize.y, \
+                        else DrawRectangle(br[i,j].position.x-brickSize.x/2,
+                                           br[i,j].position.y-brickSize.y/2,
+                                           brickSize.x,
+                                           brickSize.y,
                                            DARKGRAY)
                         fi
                     fi
                 od
             od
 
-            if pause then DrawText("GAME PAUSED", screenWidth/2-MeasureText("GAME PAUSED", 40)/2, \
+            if pause then DrawText("GAME PAUSED", screenWidth/2-MeasureText("GAME PAUSED", 40)/2,
                                    screenHeight/2-40, 40, GRAY) fi
         else DrawText("PRESS [ENTER] TO PLAY AGAIN", 
-                      GetScreenWidth()/2-MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2, \
+                      GetScreenWidth()/2-MeasureText("PRESS [ENTER] TO PLAY AGAIN", 20)/2,
                       GetScreenHeight()/2-50, 20, GRAY)
         fi
     EndDrawing()
