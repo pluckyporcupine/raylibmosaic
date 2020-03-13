@@ -1,4 +1,4 @@
-import raylib
+import* raylib
 
 proc start=
     const int screenWidth=800

@@ -1,4 +1,4 @@
-import raylib
+import* raymath
 
 proc start=
     Vector2 v2:=Vector2Add(Vector2Zero(), Vector2One())

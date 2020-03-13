@@ -1,4 +1,4 @@
-import raylib
+import* raylib
 
 !defines
 global const int SNAKE_LENGTH=256

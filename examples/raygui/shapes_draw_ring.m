@@ -1,4 +1,4 @@
-import raylib
+import* raylib
 
 proc start=
     int screenWidth:=800

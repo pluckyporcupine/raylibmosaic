@@ -1,5 +1,4 @@
-import clib
-import raylib
+import* raylib
 
 !some defines
 global const int PLAYER_MAX_LIFE=5

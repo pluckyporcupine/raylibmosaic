@@ -1,4 +1,4 @@
-import raylib
+import* raylib
 
 record Player=
     Vector2 pos

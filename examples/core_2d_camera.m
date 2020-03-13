@@ -1,6 +1,4 @@
-import clib
-import mlib
-import raylib
+import* raylib
 
 const int MAX_BUILDINGS=100
 
