@@ -1,14 +1,12 @@
 # raylib-mosaic
 
-These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). These bindings are made for only confirmed to be working with raylib-2.6.0.
+These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). These bindings are made for and only confirmed to be working with raylib-2.6.0.
 
 You can find more information about Mosaic [here](https://github.com/sal55/langs/blob/master/Mosaic/readme.md).
 
-## Work in progress
+## Current state
 
-These bindings are still a work in progress. They are not battle-tested at all. Everything I've thrown at them thus far compiles and runs properly, but there may still be issues. These bindings were hand-written and not all of the type signatures have been verified. Furthermore, `TraceLogCallback` is likely not fully implemented.
-
-If you encounter any issues, please open an issue or submit a pull request.
+Only a subset of the bindings have been tested, but that subset gives me reason to believe that most, if not all, of the bindings should work. If you find any that don't, open an issue and I will issue a fix as soon as possible.
 
 ## Quirks
 
@@ -18,7 +16,7 @@ Due to reserved words and differences in calling conventions, there are a few qu
 
 * Records (structs) of <=8 bytes that are passed to a C function must be passed by value. All others must be passed by reference. The compiler should help you in remembering this. For further clarity, compiling with the option `-recs` will show you all records in your code and their sizes. Records of <=8 bytes are marked with an `S`.
 
-* The names of several struct members have been changed to avoid namespace conflicts with reserved words. The changes are as follows:
+* The names of several struct members have been changed to avoid naming conflicts with reserved words. The changes are as follows:
     * max -> `max
     * min -> `min
     * type -> `type
