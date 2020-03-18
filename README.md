@@ -6,7 +6,7 @@ You can find more information about Mosaic [here](https://github.com/sal55/langs
 
 ## Current state
 
-Only a subset of the bindings have been tested, but that subset gives me reason to believe that most, if not all, of the bindings should work. If you find any that don't, open an issue and I will issue a fix as soon as possible.
+Only a subset of the bindings has been tested, but that subset gives me reason to believe that most, if not all, of the bindings should work. If you find any that don't, open an issue and I will issue a fix as soon as possible.
 
 ## Quirks
 
