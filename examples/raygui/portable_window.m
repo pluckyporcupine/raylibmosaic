@@ -9,6 +9,7 @@ proc start=
 
     Vector2 mousePosition
     Vector2 windowPosition:=(500,200)
+    Rectangle colRec:=(0,0,screenWidth,20)
     Vector2 panOffset
     byte dragWindow:=0
 
@@ -21,12 +22,9 @@ proc start=
     while not exitWindow and not WindowShouldClose() do
         mousePosition:=GetMousePosition()
 
-        if IsMouseButtonPressed(MOUSE_LEFT_BUTTON) then
-            Rectangle colRec:=(0,0,screenWidth,20)
-            if CheckCollisionPointRec(mousePosition, &colRec) then
-                dragWindow:=1
-                panOffset:=mousePosition
-            fi
+        if IsMouseButtonPressed(MOUSE_LEFT_BUTTON) and CheckCollisionPointRec(mousePosition, &colRec) then
+            dragWindow:=1
+            panOffset:=mousePosition
         fi
 
         if dragWindow then
