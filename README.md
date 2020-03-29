@@ -1,12 +1,14 @@
 # raylib-mosaic
 
-These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib). These bindings are made for and only confirmed to be working with raylib-2.6.0.
+These are work-in-progress Mosaic bindings for [the raylib gamedev library](https://github.com/raysan5/raylib).
 
 You can find more information about Mosaic [here](https://github.com/sal55/langs/blob/master/Mosaic/readme.md).
 
 ## Current state
 
 Only a subset of the bindings has been tested, but that subset gives me reason to believe that most, if not all, of the bindings should work. If you find any that don't, open an issue and I will issue a fix as soon as possible.
+
+There is tentative support for raylib 3.0, but has not been tested as of yet.
 
 ## Quirks
 

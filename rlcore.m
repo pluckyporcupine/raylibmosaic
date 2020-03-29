@@ -118,6 +118,7 @@ global enum (
     FLAG_WINDOW_UNDECORATED = 8,
     FLAG_WINDOW_TRANSPARENT = 16,
     FLAG_WINDOW_HIDDEN      = 128,
+    FLAG_WINDOW_ALWAYS_RUN  = 256,
     FLAG_MSAA_4X_HINT       = 32,
     FLAG_VSYNC_HINT         = 64 )
 
@@ -482,6 +483,10 @@ importdll raylib=
     clang function  "GetRandomValue"            (int32, int32)int32
 
     !file management functions
+    clang function  "LoadFileData"              (ref char, ref int)ref byte
+    clang proc      "SaveFileData"              (ref char, ref void, int)
+    clang function  "LoadFileText"              (ref char)ref char
+    clang proc      "SaveFileText"              (ref char, ref char)
     clang function  "FileExists"                (ref char)byte
     clang function  "IsFileExtension"           (ref char, ref char)byte
     clang function  "DirectoryExists"           (ref char)byte
@@ -652,11 +657,6 @@ importdll raylib=
     clang function  "ImageExtractPalette"       (ref Image, int32, ref int32)ref Color
     clang proc      "ImageText"                 (ref Image, ref char, int32, Color)
     clang proc      "ImageTextEx"               (ref Image, ref Font, ref char, real32, real32, Color)
-    clang proc      "ImageDraw"                 (ref Image, ref Image, ref Rectangle, ref Rectangle, Color)
-    clang proc      "ImageDrawRectangle"        (ref Image, ref Rectangle, Color)
-    clang proc      "ImageDrawRectangleLines"   (ref Image, ref Rectangle, int32, Color)
-    clang proc      "ImageDrawText"             (ref Image, Vector2, ref char, int32, Color)
-    clang proc      "ImageDrawTextEx"           (ref Image, Vector2, ref Font, ref char, real32, real32, Color)
     clang proc      "ImageFlipVertical"         (ref Image)
     clang proc      "ImageFlipHorizontal"       (ref Image)
     clang proc      "ImageRotateCW"             (ref Image)
@@ -667,6 +667,23 @@ importdll raylib=
     clang proc      "ImageColorContrast"        (ref Image, real32)
     clang proc      "ImageColorBrightness"      (ref Image, int32)
     clang proc      "ImageColorReplace"         (ref Image, Color, Color)
+
+    !Image drawing functions
+    clang proc      "ImageClearBackground"      (ref Image, Color)
+    clang proc      "ImageDrawPixel"            (ref Image, int32, int32, Color)
+    clang proc      "ImageDrawPixelV"           (ref Image, Vector2, Color)
+    clang proc      "ImageDrawLine"             (ref Image, int32, int32, int32, int32, Color)
+    clang proc      "ImageDrawLineV"            (ref Image, Vector2, Vector2, Color)
+    !clang proc     "ImageDrawLineEx"           ()
+    clang proc      "ImageDrawCircle"           (ref Image, int32, int32, int32, Color)
+    clang proc      "ImageDrawCircleV"          (ref Image, Vector2, int32, Color)
+    clang proc      "ImageDrawRectangle"        (ref Image, ref Rectangle, Color)
+    clang proc      "ImageDrawRectangleV"       (ref Image, Vector2, Vector2, Color)
+    clang proc      "ImageDrawRectangleRec"     (ref Image, ref Rectangle, Color)
+    clang proc      "ImageDrawRectangleLines"   (ref Image, ref Rectangle, int32, Color)
+    clang proc      "ImageDraw"                 (ref Image, ref Image, ref Rectangle, ref Rectangle, Color)
+    clang proc      "ImageDrawText"             (ref Image, Vector2, ref char, int32, Color)
+    clang proc      "ImageDrawTextEx"           (ref Image, Vector2, ref Font, ref char, real32, real32, Color)
 
     !Image generation functions
     clang proc      "GenImageColor"             (ref Image, int32, int32, Color)
@@ -731,6 +748,12 @@ importdll raylib=
     clang function  "TextToPascal"              (ref char)ref char
     clang function  "TextToInteger"             (ref char)int32
     clang function  "TextToUtf8"                (ref int32, int32)ref char
+
+    !UTF8 text strings management functions
+    clang function  "GetCodePoints"             (ref char, ref int32)ref int32
+    clang function  "GetCodepointsCount"        (ref char)int32
+    clang function  "GetNextCodepoint"          (ref char, ref int32)int32
+    clang function  "CodepointToUtf8"           (int32, ref int32)ref char
 
     !basic geometric 3D shapes drawing functions
     clang proc      "DrawLine3D"                (ref Vector3, ref Vector3, Color)
