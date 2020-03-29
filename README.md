@@ -8,7 +8,7 @@ You can find more information about Mosaic [here](https://github.com/sal55/langs
 
 Only a subset of the bindings has been tested, but that subset gives me reason to believe that most, if not all, of the bindings should work. If you find any that don't, open an issue and I will issue a fix as soon as possible.
 
-There is tentative support for raylib 3.0, but has not been tested as of yet.
+There is tentative support for raylib 3.0, but it has not been tested as of yet.
 
 ## Quirks
 
