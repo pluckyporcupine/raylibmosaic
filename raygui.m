@@ -21,7 +21,7 @@ global const int32 TEXTEDIT_CURSOR_BLINK_FRAMES=20
     GUI_STATE_PRESSED,
     GUI_STATE_DISABLED )
 
-! gui text alignment
+!gui text alignment
 enum (
     GUI_TEXT_ALIGN_LEFT=0,
     GUI_TEXT_ALIGN_CENTER,
