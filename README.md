@@ -4,6 +4,8 @@ These are work-in-progress Mosaic bindings for [the raylib gamedev library](http
 
 You can find more information about Mosaic [here](https://github.com/sal55/langs/blob/master/Mosaic/readme.md).
 
+*Note:* The Mosaic compiler that was used for this is only available for 64-bit Windows. [A Linux version](https://github.com/sal55/langs/blob/master/mu64.c) of the compiler that is written in and compiles to C exists, but this has not been tested with it.
+
 ## Current state
 
 Only a subset of the bindings has been tested, but that subset gives me reason to believe that most, if not all, of the bindings should work. If you find any that don't, open an issue and I will issue a fix as soon as possible.
