@@ -41,7 +41,7 @@ global record Rectangle= $caligned
 end
 
 global record Image= $caligned
-    ref[0:]void data
+    ref void data
     int32 width
     int32 height
     int32 mipmaps

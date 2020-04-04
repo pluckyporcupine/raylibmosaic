@@ -59,8 +59,8 @@ importdll raylib=
     clang proc      "rlDeleteBuffers"               (u32)
     clang proc      "rlClearColor"                  (byte, byte, byte, byte)
     clang proc      "rlClearScreenBuffers"          ()
-    clang proc      "rlUpdateBuffer"                (int32, ref[0:]void, int32)
-    clang function  "rlLoadAttribBuffer"            (u32, int32, ref[0:]void, int32, byte)u32
+    clang proc      "rlUpdateBuffer"                (int32, ref void, int32)
+    clang function  "rlLoadAttribBuffer"            (u32, int32, ref void, int32, byte)u32
 
     !rlgl functionality
     clang proc      "rlglInit"                      (int32, int32)
@@ -76,12 +76,12 @@ importdll raylib=
     clang function  "rlLoadTexture"                 (ref void, int32, int32, int32, int32)u32
     clang function  "rlLoadTextureDepth"            (int32, int32, int32, byte)u32
     clang function  "rlLoadTextureCubemap"          (ref void, int32, int32)u32
-    clang proc      "rlUpdateTexture"               (u32, int32, int32, int32, ref[0:]void)
+    clang proc      "rlUpdateTexture"               (u32, int32, int32, int32, ref void)
     clang proc      "rlGetGlTextureFormats"         (int32, ref u32, ref u32, ref u32)      ! ref[0:]u32?
     clang proc      "rlUnloadTexture"               (u32)
 
     clang proc      "rlGenerateMipmaps"             (ref Texture2D)
-    clang function  "rlReadTexturePixels"           (ref Texture2D)ref[0:]void
+    clang function  "rlReadTexturePixels"           (ref Texture2D)ref void
     clang function  "rlReadScreenPixels"            (int32, int32)ref[0:]u32
 
     clang proc      "rlLoadRenderTexture"           (ref RenderTexture2D, int32, int32, int32, int32, byte)
