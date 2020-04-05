@@ -4,7 +4,7 @@ These are work-in-progress Mosaic bindings for [the raylib gamedev library](http
 
 You can find more information about Mosaic [here](https://github.com/sal55/langs/blob/master/Mosaic/readme.md).
 
-*Note:* The Mosaic compiler that was used for this is only available for 64-bit Windows. [A Linux version](https://github.com/sal55/langs/blob/master/mu64.c) of the compiler that is written in and compiles to C exists, but this has not been tested with it.
+*Note:* The Mosaic compiler that was used to write these bindings is only available for 64-bit Windows. I have begun testing the bindings with a version that is written in and compiles to C and have sucessfully compiled the Arkanoid example on both Windows and Linux (albeit I was using Windows Subsystem for Linux, so I have not tested that it runs properly on Linux). See below for instructions on how to use this version.
 
 ## Current state
 
@@ -39,7 +39,7 @@ Due to reserved words and differences in calling conventions, there are a few qu
 
 There are (poorly tested) raymath and rlgl bindings.
 
-I have also written (also poorly tested) bindings for raygui. If you would like to use raygui, you currently need to build raylib from source and modify the Makefile to include raygui. For convenience, I have included a pre-built raylib DLL that includes raygui.
+I have also written (also poorly tested) bindings for raygui. If you would like to use raygui, you currently need to build raylib from source and modify the Makefile to include raygui.
 
 Alternatively, you could build your own raygui DLL and change `importdll raylib` on line 148 of raygui.m to `importdll raygui`.
 
@@ -53,3 +53,25 @@ There are currently two caveats:
 
   1. Until I can figure out a good solution for the examples that require resources, the script only compiles the examples that do not require external resources.
   2. The script assumes that `mm.exe` is somewhere in your path. As it is a single-file compiler, it is not difficult to add to your path.
+
+## Using the mc (Windows) or mu (Linux) compilers
+
+Writing code works exactly the same as the mm compiler. However, compilation is a bit different.
+
+You can grab the compilers here: [mc](http://www.bcas.freeuk.com/mc.exe) | [mu](http://www.bcas.freeuk.com/mu.exe) | [mu source](https://github.com/sal55/langs/blob/master/mu64.c).
+
+These compilers rely on either GCC or TCC. What follows are the instructions to build executables. On Windows, these instructions assume that you are using GCC in MSYS2.
+
+To compile the code in mc, you must do the following:
+
+```
+mc -c arkanoid.m
+gcc arkanoid.c -lraylib -lopengl32 -lwinmm -lgdi32 -luser32 -lkernel32
+```
+
+To compile the code in mu, you must do the following (tested in Ubuntu 18.04 for WSL):
+
+```
+mu -c arkanoid.m
+gcc arkanoid.c -lraylib -lglfw -lGL -lopenal -lm -pthread -ldl
+```

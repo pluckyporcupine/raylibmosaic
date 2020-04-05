@@ -2,7 +2,7 @@
 
 if NOT exist bin\nul (
     mkdir bin
-    copy /b raylib.dll bin
+    REM copy /b raylib.dll bin
 )
 
 for /f "tokens=*" %%a in (examples.txt) do (
